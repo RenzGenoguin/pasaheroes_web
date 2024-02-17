@@ -1,4 +1,5 @@
 import { adminAccountsRouter } from "./routers/admin";
+import { driverRouter } from "./routers/driver";
 import { loginRouter } from "./routers/login";
 import { vehicleTypeRouter } from "./routers/vehicletype";
 import { createTRPCRouter } from "./trpc";
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
   login: loginRouter,
   admin: adminAccountsRouter,
   vehicleType: vehicleTypeRouter,
+  driver: driverRouter,
 });
 
 // export type definition of API

@@ -29,8 +29,10 @@ model VehicleType {
 
 model Driver {
     id            String      @id @default(cuid())
+    profileUrl    String
     firstName     String
     lastName      String
+    fullName      String
     plateNo       String
     contactNo     String
     address       String
@@ -44,16 +46,17 @@ model Driver {
 }
 
 model Pasahero {
-    id        Int       @id @default(autoincrement())
-    firstName String
-    lastName  String
-    contactNo String
-    address   String
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    Rating    Rating[]
-    Comment   Comment[]
-    Ride      Ride[]
+    id         Int       @id @default(autoincrement())
+    profileUrl String?
+    firstName  String
+    lastName   String
+    contactNo  String
+    address    String
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    Rating     Rating[]
+    Comment    Comment[]
+    Ride       Ride[]
 }
 
 model Rating {
@@ -72,8 +75,10 @@ model Comment {
     comment    String
     driverId   String
     pasaheroId Int
+    rideId     Int
     Driver     Driver   @relation(fields: [driverId], references: [id])
     Pasahero   Pasahero @relation(fields: [pasaheroId], references: [id])
+    Ride       Ride     @relation(fields: [rideId], references: [id])
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 }
@@ -86,4 +91,5 @@ model Ride {
     pasaheroId Int
     Driver     Driver    @relation(fields: [driverId], references: [id])
     Pasahero   Pasahero  @relation(fields: [pasaheroId], references: [id])
+    Comment    Comment[]
 }

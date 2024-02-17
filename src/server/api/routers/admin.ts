@@ -10,8 +10,8 @@ export const adminAccountsRouter = createTRPCRouter({
         id: z.number(),
       }),
     )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.admin.findUnique({
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.admin.findUnique({
         where: {
           id: input.id,
         },

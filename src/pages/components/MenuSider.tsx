@@ -51,7 +51,7 @@ const MenuSider = ({ siderTitle, siderItems }: any) => {
                 onClick={changePage(menu.url)}
                 className={` item-center flex w-full cursor-pointer flex-row gap-2 rounded-lg p-1 px-4 pt-2  ${
                   pathname === menu.url
-                    ? "bg-white bg-opacity-90 text-blue-600"
+                    ? "bg-white bg-opacity-90 text-blue-800"
                     : "text-white hover:bg-white hover:bg-opacity-10"
                 }`}
               >
@@ -67,7 +67,7 @@ const MenuSider = ({ siderTitle, siderItems }: any) => {
           <div className=" z-10 flex flex-none items-center justify-center rounded-full bg-blue-800 p-3 text-2xl text-white">
             <FaUserCog className=" -mr-0.5 ml-0.5" />
           </div>
-          <div className=" -ml-10 w-40 rounded-full bg-white bg-opacity-60 p-2 pl-12 text-base text-blue-700">
+          <div className=" -ml-10 w-40 rounded-full bg-blue-700 bg-opacity-70 p-2 pl-12 text-base text-white">
             Admin
           </div>
         </div>

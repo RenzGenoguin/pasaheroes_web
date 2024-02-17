@@ -9,8 +9,8 @@ export const vehicleTypeRouter = createTRPCRouter({
         vehicleType: z.string(),
       }),
     )
-    .mutation(({ ctx, input }) => {
-      const vehicleType = ctx.prisma.vehicleType.create({
+    .mutation(async ({ ctx, input }) => {
+      const vehicleType = await ctx.prisma.vehicleType.create({
         data: {
           vehicleType: input.vehicleType,
         },
@@ -24,8 +24,8 @@ export const vehicleTypeRouter = createTRPCRouter({
         searchText: z.string(),
       }),
     )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.vehicleType.findMany({
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.vehicleType.findMany({
         where: {
           vehicleType: {
             contains: input.searchText,
@@ -43,8 +43,8 @@ export const vehicleTypeRouter = createTRPCRouter({
         id: z.number(),
       }),
     )
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.vehicleType.delete({
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.vehicleType.delete({
         where: {
           id: input.id,
         },
@@ -57,8 +57,8 @@ export const vehicleTypeRouter = createTRPCRouter({
         vehicleType: z.string(),
       }),
     )
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.vehicleType.update({
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.vehicleType.update({
         where: {
           id: input.id,
         },

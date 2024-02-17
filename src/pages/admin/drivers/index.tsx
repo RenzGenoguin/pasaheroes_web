@@ -275,7 +275,7 @@ const VehicleType = () => {
           <Modal
             title={
               <div className=" flex flex-row gap-1">
-                <div className=" flex items-center justify-start text-lg text-orange-500">
+                <div className=" flex items-center justify-start text-xl text-orange-500">
                   <FaEdit />
                 </div>
                 Edit

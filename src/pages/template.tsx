@@ -40,6 +40,16 @@ const AdditionalPages = [
     title: "Add New Driver",
     url: "/admin/addDriver",
   },
+  {
+    icon: <ImUsers />,
+    title: "Driver Details",
+    url: "/admin/driverDetails",
+  },
+  {
+    icon: <ImUsers />,
+    title: "Edit Driver's Details",
+    url: "/admin/editDriver",
+  },
 ];
 const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -49,19 +59,21 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
     if (!localStorage.getItem("userId")) {
       router.push("/login");
     } else {
-      if (pathname.includes("login")) {
+      if (pathname?.includes("login")) {
         router.push("/admin");
       }
     }
   }, []);
 
   const findRouteName = () => {
-    if (pathname.includes("driverDetails")) {
-      return "Driver Details";
+    let active: any = siderItems[0];
+    if (pathname !== "/admin") {
+      active = [...siderItems, ...AdditionalPages].find((data) => {
+        if (data.url !== "/admin") {
+          return pathname?.includes(data.url);
+        }
+      });
     }
-    const active = [...siderItems, ...AdditionalPages].find((data) => {
-      return data.url === pathname;
-    });
     if (active) {
       return (
         <div className=" flex flex-row items-center gap-2">

@@ -3,8 +3,10 @@ import { IoMdAddCircle } from "react-icons/io";
 import UploadImage from "./uploadImage";
 import { IoSend } from "react-icons/io5";
 import { api } from "~/utils/api";
+import { FaEdit } from "react-icons/fa";
+import { useRouter } from "next/router";
 
-const AddDriverForm = ({
+const DriverForm = ({
   form,
   onFinish,
   onFinishFailed,
@@ -15,11 +17,16 @@ const AddDriverForm = ({
   imageError,
   setImageError,
   submitIsLoading,
+  isEdit,
 }: any) => {
+  const router = useRouter();
   const { data: vehicleType } = api.vehicleType.getAllvehicleTypes.useQuery({
     searchText: "",
     withOptionFormat: true,
   });
+  const handleCancel = () => {
+    router.back();
+  };
   return (
     <Form
       form={form}
@@ -30,12 +37,18 @@ const AddDriverForm = ({
       autoComplete="off"
       className=" flex w-full flex-col"
     >
-      <div className=" mb-4 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
-        <div className=" flex items-center justify-center text-3xl text-blue-700">
-          <IoMdAddCircle />
+      {isEdit ? (
+        <div className=" mb-4 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
+          Edit Driver's Details
         </div>
-        Add New Driver
-      </div>
+      ) : (
+        <div className=" mb-4 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
+          <div className=" flex items-center justify-center text-3xl text-blue-700">
+            <IoMdAddCircle />
+          </div>
+          Add New Driver
+        </div>
+      )}
       <div className=" mb-2  text-xl">Driver's Photo</div>
       <div>Upload Drivers's Image</div>
       <UploadImage
@@ -107,16 +120,37 @@ const AddDriverForm = ({
           <Input size="large" placeholder="09*********" />
         </Form.Item>
       </div>
-      <button
-        type="submit"
-        disabled={submitIsLoading()}
-        className=" mx-auto mb-10 flex h-10 cursor-pointer items-center justify-center gap-3 rounded border border-cyan-600 bg-blue-700 px-10 text-lg text-white hover:brightness-110"
-      >
-        {submitIsLoading() ? "Adding ..." : "Add Driver"}
-        <IoSend />
-      </button>
+      {isEdit ? (
+        <div className=" flex justify-end  gap-2">
+          <button
+            type="button"
+            onClick={handleCancel}
+            className=" mb-10 flex cursor-pointer items-center justify-center gap-3 rounded border border-gray-300 bg-white px-8 py-1 text-base text-gray-700 hover:brightness-110"
+          >
+            Cancel
+            {/* <IoSend /> */}
+          </button>
+          <button
+            type="submit"
+            disabled={submitIsLoading()}
+            className=" mb-10 flex w-40 cursor-pointer items-center justify-center gap-3 rounded border border-none border-cyan-600 bg-green-600 px-10 py-1 text-base text-white hover:brightness-110 disabled:opacity-50"
+          >
+            {submitIsLoading() ? "Saving..." : "Save"}
+            {/* <IoSend /> */}
+          </button>
+        </div>
+      ) : (
+        <button
+          type="submit"
+          disabled={submitIsLoading()}
+          className=" mx-auto mb-10 flex h-10 cursor-pointer items-center justify-center gap-3 rounded border border-cyan-600 bg-blue-700 px-10 text-lg text-white hover:brightness-110 disabled:opacity-50"
+        >
+          {submitIsLoading() ? "Adding..." : "Add Driver"}
+          <IoSend />
+        </button>
+      )}
     </Form>
   );
 };
 
-export default AddDriverForm;
+export default DriverForm;

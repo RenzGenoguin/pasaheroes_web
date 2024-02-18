@@ -6,3 +6,12 @@
 body {
   margin: 0;
 }
+@media print {
+  #toprint {
+    display: flex !important;
+  }
+}
+
+#toprint {
+  display: none;
+}

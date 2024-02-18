@@ -2,11 +2,9 @@ import { Form } from "antd";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { api } from "~/utils/api";
-import { handleUpload, imageDB } from "~/components/firebase/firebaseupload";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
+import { handleUpload } from "~/components/firebase/firebaseupload";
 import toast from "react-hot-toast";
-import AddDriverForm from "./components/addDriverForm";
+import DriverForm from "../../components/DriverForm";
 
 const VehicleType = () => {
   const [form] = Form.useForm();
@@ -69,7 +67,7 @@ const VehicleType = () => {
     <div className=" flex w-full flex-row justify-center gap-5 p-5 pt-0">
       <div className=" w-1/2 rounded-xl bg-slate-50 p-5 shadow-md">
         {" "}
-        <AddDriverForm
+        <DriverForm
           form={form}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}

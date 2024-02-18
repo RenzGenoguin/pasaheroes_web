@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 const firebaseConfig = {
-  apiKey: "AIzaSyAovtURtW21Ij_uTNVAu-BGRKZxr9esDMk",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: "imageuploadforthesises.firebaseapp.com",
   projectId: "imageuploadforthesises",
   storageBucket: "imageuploadforthesises.appspot.com",

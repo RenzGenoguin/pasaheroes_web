@@ -16,11 +16,14 @@ const VehicleType = () => {
     withOptionFormat: true,
   });
 
-  const { data: drivers, refetch: refetchDrivers } =
-    api.driver.getAllDriver.useQuery({
-      searchText,
-      vehicleId: vehicleId ? vehicleId : null,
-    });
+  const {
+    data: drivers,
+    refetch: refetchDrivers,
+    isLoading: driverIsLoading,
+  } = api.driver.getAllDriver.useQuery({
+    searchText,
+    vehicleId: vehicleId ? vehicleId : null,
+  });
 
   const columns: ColumnsType<any> = [
     {
@@ -44,8 +47,8 @@ const VehicleType = () => {
       width: 200,
       render: (data: any) => (
         <div
-          onClick={() => router.push(data.id)}
-          className=" flex flex-row items-center justify-center gap-2"
+          onClick={() => router.push(`/admin/driverDetails/${data.id}`)}
+          className=" flex cursor-pointer flex-row items-center justify-center gap-2 text-blue-700 hover:text-blue-500"
         >
           View Details
         </div>
@@ -110,6 +113,7 @@ const VehicleType = () => {
             pagination={{ pageSize: 5 }}
             columns={columns}
             dataSource={drivers}
+            loading={driverIsLoading}
           />
         </div>
       </div>

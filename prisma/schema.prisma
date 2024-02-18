@@ -92,4 +92,6 @@ model Ride {
     Driver     Driver    @relation(fields: [driverId], references: [id])
     Pasahero   Pasahero  @relation(fields: [pasaheroId], references: [id])
     Comment    Comment[]
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
 }

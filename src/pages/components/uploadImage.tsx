@@ -55,12 +55,12 @@ const UploadImage = ({
           <Image src={imageBase64} height={110} alt="Drivers Photo" />
         </div>
       )}
-      {!(imageBase64 && imageFile) ? (
+      {!imageBase64 ? (
         <>
           <button
             type="button"
             className={` flex h-28 w-28 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed bg-white hover:brightness-95 ${
-              imageError ? "text-red-500" : "text-gray-700"
+              imageError ? "border-red-500 text-red-500" : " text-gray-700"
             }`}
             onClick={handleClick}
           >

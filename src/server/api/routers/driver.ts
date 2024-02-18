@@ -78,8 +78,16 @@ export const driverRouter = createTRPCRouter({
         },
         include: {
           Rating: true,
-          Comment: true,
-          Ride: true,
+          Comment: {
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
+          Ride: {
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
           vehicleType: true,
         },
       });
@@ -113,6 +121,7 @@ export const driverRouter = createTRPCRouter({
           id: input.id,
         },
         data: {
+          fullName: `${input.firstName} ${input.lastName}`,
           firstName,
           lastName,
           plateNo,

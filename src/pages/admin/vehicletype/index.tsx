@@ -41,7 +41,11 @@ const VehicleType = () => {
       },
     });
 
-  const { data, refetch } = api.vehicleType.getAllvehicleTypes.useQuery({
+  const {
+    data,
+    refetch,
+    isLoading: typesIsLoading,
+  } = api.vehicleType.getAllvehicleTypes.useQuery({
     searchText,
   });
 
@@ -107,8 +111,9 @@ const VehicleType = () => {
             Edit
           </button>
           <button
+            disabled={data?.Driver?.length}
             onClick={() => openModal("delete", data)}
-            className=" flex flex-1  cursor-pointer items-center justify-center gap-1 rounded border-none bg-red-500 py-1 text-white"
+            className=" flex flex-1 cursor-pointer  items-center justify-center gap-1 rounded border-none bg-red-500 py-1 text-white disabled:bg-slate-400"
           >
             <div className=" flex items-center justify-center text-base">
               <MdDeleteForever />
@@ -212,6 +217,7 @@ const VehicleType = () => {
             pagination={{ pageSize: 8 }}
             columns={columns}
             dataSource={data}
+            loading={typesIsLoading}
           />
           <Modal
             title={
@@ -232,8 +238,8 @@ const VehicleType = () => {
                 {activeVehicleType?.data?.Driver?.length ? (
                   <div className=" flex flex-col">
                     <div>
-                      You can't delete Vehicle Types that is already has
-                      Registered Drivers
+                      You can't delete Vehicle Types that already has Registered
+                      Drivers
                     </div>
                     <div className=" mt-3 flex flex-row gap-2">
                       <button

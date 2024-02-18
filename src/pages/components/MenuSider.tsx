@@ -45,9 +45,10 @@ const MenuSider = ({ siderTitle, siderItems }: any) => {
           {siderTitle}
         </div>
         <div className=" flex w-full flex-col items-center gap-3 py-5">
-          {siderItems.map((menu: any) => {
+          {siderItems.map((menu: any, index: number) => {
             return (
               <div
+                key={index}
                 onClick={changePage(menu.url)}
                 className={` item-center flex w-full cursor-pointer flex-row gap-2 rounded-lg p-1 px-4 pt-2  ${
                   pathname === menu.url

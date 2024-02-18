@@ -22,20 +22,33 @@ export const vehicleTypeRouter = createTRPCRouter({
     .input(
       z.object({
         searchText: z.string(),
+        withOptionFormat: z.boolean().nullish(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      return await ctx.prisma.vehicleType.findMany({
+      const vht = await ctx.prisma.vehicleType.findMany({
         where: {
           vehicleType: {
             contains: input.searchText,
             mode: "insensitive",
           },
         },
+        orderBy: {
+          createdAt: "desc",
+        },
         include: {
           Driver: true,
         },
       });
+      if (input.withOptionFormat) {
+        return vht.map((data) => {
+          return {
+            value: data.id,
+            label: data.vehicleType,
+          };
+        });
+      }
+      return vht;
     }),
   deleteVehicleType: publicProcedure
     .input(

@@ -33,6 +33,14 @@ const siderItems = [
     key: "vehicletype",
   },
 ];
+
+const AdditionalPages = [
+  {
+    icon: <ImUsers />,
+    title: "Add New Driver",
+    url: "/admin/addDriver",
+  },
+];
 const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { Content } = Layout;
@@ -48,7 +56,22 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const findRouteName = () => {
-    return siderItems.find((data) => data.url === pathname)?.title;
+    if (pathname.includes("driverDetails")) {
+      return "Driver Details";
+    }
+    const active = [...siderItems, ...AdditionalPages].find((data) => {
+      return data.url === pathname;
+    });
+    if (active) {
+      return (
+        <div className=" flex flex-row items-center gap-2">
+          <div className=" ml-3 flex items-center justify-center text-2xl">
+            {active.icon}
+          </div>
+          {`${active.title}`}
+        </div>
+      );
+    }
   };
 
   if (pathname !== "/login") {

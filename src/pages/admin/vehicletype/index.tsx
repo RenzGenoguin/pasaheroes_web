@@ -1,23 +1,14 @@
-"use client";
 import { Form, Input, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
-
 import { api } from "~/utils/api";
 
-interface DataType {
-  key: React.Key;
-  name: string;
-  age: number;
-  address: string;
-}
-const { Search, TextArea } = Input;
-
 const VehicleType = () => {
+  const { Search } = Input;
   const [form] = Form.useForm();
   const [form2] = Form.useForm();
   const [activeVehicleType, setActiveVehicleType] = useState<any>(null);
@@ -94,9 +85,11 @@ const VehicleType = () => {
       dataIndex: "Driver",
       render: (data) => (
         <>
-          {data.length
-            ? `${data.length} Registered Drivers`
-            : "No Registered Driver"}
+          {data.length ? (
+            `${data.length} Registered Drivers`
+          ) : (
+            <div className=" text-gray-400">No Registered Driver</div>
+          )}
         </>
       ),
     },
@@ -187,18 +180,21 @@ const VehicleType = () => {
         <div className=" min-h-96 flex flex-col rounded  bg-white">
           <div className=" flex w-full items-center justify-between">
             <div className=" w-1/3 p-5 px-2">
-              <Search
-                width={10}
-                className=" flex-none"
-                placeholder="Search"
-                size="large"
-                onSearch={(e) => setSearchText(e)}
-                onChange={(e) => {
-                  if (e.target.value === "") {
-                    setSearchText("");
-                  }
-                }}
-              />
+              <div className=" flex flex-1 flex-col gap-1">
+                <div>Search Vehicle Type</div>
+                <Search
+                  width={10}
+                  className=" flex-none"
+                  placeholder="Vehicle Type"
+                  size="large"
+                  onSearch={(e) => setSearchText(e)}
+                  onChange={(e) => {
+                    if (e.target.value === "") {
+                      setSearchText("");
+                    }
+                  }}
+                />
+              </div>
             </div>
 
             <button
@@ -213,7 +209,7 @@ const VehicleType = () => {
           </div>
           <Table
             // rowSelection={rowSelection}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 8 }}
             columns={columns}
             dataSource={data}
           />

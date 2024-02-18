@@ -56,6 +56,9 @@ export const driverRouter = createTRPCRouter({
             },
           ],
         },
+        orderBy: {
+          createdAt: "desc",
+        },
         include: {
           vehicleType: true,
         },

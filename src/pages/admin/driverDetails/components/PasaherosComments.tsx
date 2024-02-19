@@ -1,4 +1,4 @@
-import { DatePicker, Rate, Table } from "antd";
+import { DatePicker, Divider, Rate, Table } from "antd";
 import dayjs from "dayjs";
 import { FaStar } from "react-icons/fa";
 
@@ -20,10 +20,10 @@ const PasaherosComments = ({
           Passenger's Comments
         </div>
       </div>
-      <div className=" ">
-        <div className=" flex max-h-96 min-h-full flex-col gap-2 overflow-scroll rounded-lg border border-solid border-gray-100 p-1">
-          {comments &&
-            [...comments].map((comment: any) => {
+      {comments?.length ? (
+        <div className=" ">
+          <div className=" flex max-h-96 min-h-full flex-col gap-2 overflow-scroll rounded-lg border border-solid border-gray-100 p-1">
+            {[...comments].map((comment: any) => {
               return (
                 <div className=" rounded-md bg-gray-100 p-0 pt-2 shadow">
                   <div className=" flex flex-row items-center justify-between p-0 px-5 pb-0">
@@ -60,20 +60,25 @@ const PasaherosComments = ({
                 </div>
               );
             })}
-          {takeComments < count ? (
-            <div className=" flex w-full items-center justify-center">
-              <button
-                className=" cursor-pointer border-none bg-white py-1 text-gray-600"
-                onClick={() => setTakeComments((prev: number) => prev + 4)}
-              >
-                {commentsIsLoading ? "Loading..." : "Load More"}
-              </button>
-            </div>
-          ) : (
-            <></>
-          )}
+            {takeComments < count ? (
+              <div className=" flex w-full items-center justify-center">
+                <button
+                  className=" cursor-pointer border-none bg-white py-1 text-gray-600"
+                  onClick={() => setTakeComments((prev: number) => prev + 4)}
+                >
+                  {commentsIsLoading ? "Loading..." : "Load More"}
+                </button>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className=" flex h-full w-full items-center justify-center">
+          No Passengers Comments
+        </div>
+      )}
     </div>
   );
 };

@@ -6,9 +6,10 @@ var relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
 
 const PasaherosComments = ({
-  commentsDate,
-  onChangeDateComments,
+  setTakeComments,
+  takeComments,
   comments,
+  count,
   commentsIsLoading,
 }: any) => {
   console.log(comments);
@@ -17,14 +18,6 @@ const PasaherosComments = ({
       <div className=" flex flex-row items-center justify-between gap-2 px-2">
         <div className=" flex-1 text-base font-medium text-gray-700">
           Passenger's Comments
-        </div>
-        <div className=" flex flex-1 items-center justify-end gap-2">
-          <div className="">Date of </div>
-          <DatePicker
-            onChange={onChangeDateComments}
-            defaultValue={dayjs(commentsDate)}
-            format={"MMM DD, YYYY"}
-          />
         </div>
       </div>
       <div className=" ">
@@ -67,6 +60,18 @@ const PasaherosComments = ({
                 </div>
               );
             })}
+          {takeComments < count ? (
+            <div className=" flex w-full items-center justify-center">
+              <button
+                className=" cursor-pointer border-none bg-white py-1 text-gray-600"
+                onClick={() => setTakeComments((prev: number) => prev + 4)}
+              >
+                {commentsIsLoading ? "Loading..." : "Load More"}
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import ToPrint from "./components/ToPrint";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DriverDetails from "./components/DriverDetails";
-import { DatePickerProps } from "antd";
 import dayjs from "dayjs";
 import RidesHistory from "./components/RidesHistory";
 import RideModal from "./components/RideModal";
@@ -15,7 +14,7 @@ const DriveDetails = () => {
   const componentRef = useRef(null);
   const [ridesDate, setRidesDate] = useState(dayjs().toDate());
   const [ridesModal, setRidesModal] = useState<any>(null);
-  const [commentsDate, setCommentsDate] = useState(dayjs().toDate());
+  const [takeComments, setTakeComments] = useState(4);
 
   const { data: driverData, isLoading: driverDetailsIsLoading } =
     api.driver.getDriver.useQuery(
@@ -43,11 +42,10 @@ const DriveDetails = () => {
     api.driver.getCommentsToDriver.useQuery(
       {
         id: router.query.id as string,
-        startDate: dayjs(commentsDate).startOf("day").toDate(),
-        endDate: dayjs(commentsDate).endOf("day").toDate(),
+        take: takeComments,
       },
       {
-        enabled: !!router.query.id && !!commentsDate,
+        enabled: !!router.query.id,
       },
     );
 
@@ -61,9 +59,6 @@ const DriveDetails = () => {
 
   const onChangeDateRides = (date: Date) => {
     setRidesDate(date);
-  };
-  const onChangeDateComments = (date: Date) => {
-    setCommentsDate(date);
   };
 
   if (driverDetailsIsLoading || !router.query.id) {
@@ -95,9 +90,10 @@ const DriveDetails = () => {
         </div>
         <div className=" flex-1 rounded-xl bg-white shadow">
           <PasaherosComments
-            commentsDate={commentsDate}
-            onChangeDateComments={onChangeDateComments}
-            comments={comments}
+            takeComments={takeComments}
+            setTakeComments={setTakeComments}
+            comments={comments?.comments}
+            count={comments?.count}
             commentsIsLoading={commentsIsLoading}
           />
         </div>

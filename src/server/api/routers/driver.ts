@@ -140,19 +140,21 @@ export const driverRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        startDate: z.date(),
-        endDate: z.date(),
+        take: z.number(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      return await ctx.prisma.comment.findMany({
+      const count = await ctx.prisma.comment.aggregate({
         where: {
           driverId: input.id,
-          AND: [
-            { createdAt: { lte: input.endDate } },
-            { createdAt: { gte: input.startDate } },
-          ],
         },
+        _count: true,
+      });
+      const comments = await ctx.prisma.comment.findMany({
+        where: {
+          driverId: input.id,
+        },
+        take: input.take,
         orderBy: {
           createdAt: "desc",
         },
@@ -165,6 +167,10 @@ export const driverRouter = createTRPCRouter({
           },
         },
       });
+      return {
+        comments,
+        count: count._count,
+      };
     }),
 
   editDriver: publicProcedure

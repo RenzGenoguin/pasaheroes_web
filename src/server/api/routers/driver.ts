@@ -71,24 +71,98 @@ export const driverRouter = createTRPCRouter({
         id: z.string(),
       }),
     )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.driver.findUnique({
+    .query(async ({ ctx, input }) => {
+      const rating = await ctx.prisma.rating.aggregate({
+        where: {
+          driverId: input.id,
+        },
+        _avg: {
+          rating: true,
+        },
+        _count: true,
+      });
+
+      const driver = await ctx.prisma.driver.findUnique({
         where: {
           id: input.id,
         },
         include: {
-          Rating: true,
           Comment: {
             orderBy: {
               createdAt: "desc",
             },
-          },
-          Ride: {
-            orderBy: {
-              createdAt: "desc",
+            include: {
+              Ride: {
+                select: {
+                  Rating: true,
+                },
+              },
             },
           },
           vehicleType: true,
+        },
+      });
+      return {
+        ...driver,
+        rating: rating._count ? rating._avg.rating : null,
+      };
+    }),
+
+  getDriversRideHistory: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        startDate: z.date(),
+        endDate: z.date(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.ride.findMany({
+        where: {
+          driverId: input.id,
+          AND: [
+            { startRide: { lte: input.endDate } },
+            { startRide: { gte: input.startDate } },
+          ],
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          Pasahero: true,
+          Comment: true,
+          Rating: true,
+        },
+      });
+    }),
+
+  getCommentsToDriver: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        startDate: z.date(),
+        endDate: z.date(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.comment.findMany({
+        where: {
+          driverId: input.id,
+          AND: [
+            { createdAt: { lte: input.endDate } },
+            { createdAt: { gte: input.startDate } },
+          ],
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          Pasahero: true,
+          Ride: {
+            select: {
+              Rating: true,
+            },
+          },
         },
       });
     }),

@@ -61,11 +61,13 @@ model Pasahero {
 
 model Rating {
     id         Int      @id @default(autoincrement())
-    rating     Int
+    rating     Float
     driverId   String
     pasaheroId Int
+    rideId     Int
     Driver     Driver   @relation(fields: [driverId], references: [id])
     Pasahero   Pasahero @relation(fields: [pasaheroId], references: [id])
+    Ride       Ride?
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 }
@@ -78,7 +80,7 @@ model Comment {
     rideId     Int
     Driver     Driver   @relation(fields: [driverId], references: [id])
     Pasahero   Pasahero @relation(fields: [pasaheroId], references: [id])
-    Ride       Ride     @relation(fields: [rideId], references: [id])
+    Ride       Ride?
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 }
@@ -89,9 +91,12 @@ model Ride {
     endRide    DateTime?
     driverId   String
     pasaheroId Int
+    ratingId   Int?      @unique
+    commentId  Int?      @unique
     Driver     Driver    @relation(fields: [driverId], references: [id])
     Pasahero   Pasahero  @relation(fields: [pasaheroId], references: [id])
-    Comment    Comment[]
+    Rating     Rating?   @relation(fields: [ratingId], references: [id])
+    Comment    Comment?  @relation(fields: [commentId], references: [id])
     createdAt  DateTime  @default(now())
     updatedAt  DateTime  @updatedAt
 }

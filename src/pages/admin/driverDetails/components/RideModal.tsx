@@ -8,7 +8,6 @@ const RideModal = ({ ridesModal, setRidesModal }: any) => {
   const handleCancel = () => {
     setRidesModal(null);
   };
-  console.log(ridesModal);
   return (
     <Modal open={!!ridesModal} onCancel={handleCancel} footer={[]} width={400}>
       {ridesModal ? (
@@ -32,7 +31,13 @@ const RideModal = ({ ridesModal, setRidesModal }: any) => {
             <div className="  text-gray-500">
               Contact No :{" "}
               <span className=" font-medium text-gray-900">
-                {ridesModal.Pasahero.contactNo}
+                {ridesModal.Pasahero.contactNo || "No Contact Provided"}
+              </span>
+            </div>
+            <div className="  text-gray-500">
+              Emergency Contact No :{" "}
+              <span className=" font-medium text-gray-900">
+                {ridesModal.Pasahero.emergencyContact}
               </span>
             </div>
             <div className="  text-gray-500">

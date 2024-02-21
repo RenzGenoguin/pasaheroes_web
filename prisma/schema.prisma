@@ -10,6 +10,11 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum Gender {
+    Male
+    Female
+}
+
 model Admin {
     id        Int      @id @default(autoincrement())
     name      String
@@ -34,6 +39,8 @@ model Driver {
     lastName      String
     fullName      String
     plateNo       String
+    licenceNo       String
+    gender       Gender
     contactNo     String
     address       String
     vehicleTypeId Int
@@ -50,7 +57,9 @@ model Pasahero {
     profileUrl String?
     firstName  String
     lastName   String
-    contactNo  String
+    gender       Gender
+    emergencyContact String
+    contactNo  String?
     address    String
     createdAt  DateTime  @default(now())
     updatedAt  DateTime  @updatedAt

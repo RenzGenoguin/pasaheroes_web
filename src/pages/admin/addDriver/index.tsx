@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 import { handleUpload } from "~/components/firebase/firebaseupload";
 import toast from "react-hot-toast";
 import DriverForm from "../../components/DriverForm";
+import { Gender } from "@prisma/client";
 
 const VehicleType = () => {
   const [form] = Form.useForm();
@@ -39,6 +40,8 @@ const VehicleType = () => {
     contactNo: string;
     plateNo: string;
     vehicleTypeId: number;
+    licenceNo: string;
+    gender: Gender;
   }) => {
     if (!imageFile) {
       setImageError(true);

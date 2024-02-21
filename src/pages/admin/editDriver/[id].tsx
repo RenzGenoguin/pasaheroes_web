@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 import { handleUpload } from "~/components/firebase/firebaseupload";
 import toast from "react-hot-toast";
 import DriverForm from "~/pages/components/DriverForm";
+import { Gender } from "@prisma/client";
 
 const VehicleType = () => {
   const [form] = Form.useForm();
@@ -48,6 +49,8 @@ const VehicleType = () => {
     contactNo: string;
     plateNo: string;
     vehicleTypeId: number;
+    licenceNo: string;
+    gender: Gender;
   }) => {
     if (driverData) {
       if (!imageFile && !imageBase64) {
@@ -55,7 +58,7 @@ const VehicleType = () => {
       } else if (!imageFile && imageBase64) {
         editDriver({
           ...e,
-          profileUrl: driverData?.profileUrl,
+          profileUrl: driverData.profileUrl as string,
           id: router.query.id as string,
         });
       } else {
@@ -98,6 +101,8 @@ const VehicleType = () => {
         contactNo,
         plateNo,
         vehicleTypeId,
+        gender,
+        licenceNo,
       } = driverData;
       if (!imageFile) {
         setImageBase64(driverData.profileUrl);
@@ -109,6 +114,8 @@ const VehicleType = () => {
         contactNo,
         plateNo,
         vehicleTypeId,
+        gender,
+        licenceNo,
       });
     }
   }, [driverData]);

@@ -38,18 +38,18 @@ const DriverForm = ({
       className=" flex w-full flex-col"
     >
       {isEdit ? (
-        <div className=" mb-4 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
+        <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
           Edit Driver's Details
         </div>
       ) : (
-        <div className=" mb-4 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
+        <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
           <div className=" flex items-center justify-center text-3xl text-blue-700">
             <IoMdAddCircle />
           </div>
           Add New Driver
         </div>
       )}
-      <div className=" mb-2  text-xl">Driver's Photo</div>
+      <div className=" mb-1  text-xl">Driver's Photo</div>
       <div>Upload Drivers's Image</div>
       <UploadImage
         setImageFile={setImageFile}
@@ -59,7 +59,7 @@ const DriverForm = ({
         imageError={imageError}
         setImageError={setImageError}
       />
-      <div className=" mb-2 mt-5 text-xl">Driver's Name</div>
+      <div className=" mb-1 mt-3 text-xl">Driver's Name</div>
       <div className=" flex w-full flex-row gap-1">
         <Form.Item
           label="First Name"
@@ -78,7 +78,7 @@ const DriverForm = ({
           <Input size="large" placeholder="Last Name" />
         </Form.Item>
       </div>
-      <div className=" mb-2 text-xl">Driver's Details</div>
+      <div className=" mb-1 text-xl">Driver's Details</div>
       <div className=" flex w-full flex-row gap-1">
         <Form.Item
           label="Vehicle Type"
@@ -104,6 +104,29 @@ const DriverForm = ({
       </div>
       <div className=" flex w-full flex-row gap-1">
         <Form.Item
+          label="License No. "
+          name={"licenceNo"}
+          className=" flex-1"
+          rules={[{ required: true, message: "License number is required" }]}
+        >
+          <Input size="large" placeholder="License No." />
+        </Form.Item>
+        <Form.Item
+          label="Gender"
+          name={"gender"}
+          className=" flex-1"
+          rules={[{ required: true, message: "Gender is required" }]}
+        >
+          <Select
+            placeholder="Select Gender"
+            className=" w-full"
+            size="large"
+            options={[{label:"Male", value:"Male"},{label:"Female", value:"Female"}]}
+          />
+        </Form.Item>
+      </div>
+      <div className=" flex w-full flex-row gap-1">
+        <Form.Item
           label="Home Address"
           name={"address"}
           className=" flex-1"
@@ -125,7 +148,7 @@ const DriverForm = ({
           <button
             type="button"
             onClick={handleCancel}
-            className=" mb-10 flex cursor-pointer items-center justify-center gap-3 rounded border border-gray-300 bg-white px-8 py-1 text-base text-gray-700 hover:brightness-110"
+            className=" mb-5 flex cursor-pointer items-center justify-center gap-3 rounded border border-gray-300 bg-white px-8 py-1 text-base text-gray-700 hover:brightness-110"
           >
             Cancel
             {/* <IoSend /> */}
@@ -133,7 +156,7 @@ const DriverForm = ({
           <button
             type="submit"
             disabled={submitIsLoading()}
-            className=" mb-10 flex w-40 cursor-pointer items-center justify-center gap-3 rounded border border-none border-cyan-600 bg-green-600 px-10 py-1 text-base text-white hover:brightness-110 disabled:opacity-50"
+            className=" mb-5 flex w-40 cursor-pointer items-center justify-center gap-3 rounded border border-none border-cyan-600 bg-green-600 px-10 py-1 text-base text-white hover:brightness-110 disabled:opacity-50"
           >
             {submitIsLoading() ? "Saving..." : "Save"}
             {/* <IoSend /> */}
@@ -143,7 +166,7 @@ const DriverForm = ({
         <button
           type="submit"
           disabled={submitIsLoading()}
-          className=" mx-auto mb-10 flex h-10 cursor-pointer items-center justify-center gap-3 rounded border border-cyan-600 bg-blue-700 px-10 text-lg text-white hover:brightness-110 disabled:opacity-50"
+          className=" mx-auto mb-5 flex h-10 cursor-pointer items-center justify-center gap-3 rounded border border-cyan-600 bg-blue-700 px-10 text-lg text-white hover:brightness-110 disabled:opacity-50"
         >
           {submitIsLoading() ? "Adding..." : "Add Driver"}
           <IoSend />

@@ -1,3 +1,4 @@
+import { Gender } from "@prisma/client";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -13,12 +14,15 @@ export const driverRouter = createTRPCRouter({
         address: z.string(),
         vehicleTypeId: z.number(),
         profileUrl: z.string(),
+        gender: z.string(),
+        licenceNo: z.string()
       }),
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.driver.create({
         data: {
           ...input,
+          gender:input.gender as Gender,
           fullName: `${input.firstName} ${input.lastName}`,
         },
       });

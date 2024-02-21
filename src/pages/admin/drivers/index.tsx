@@ -5,7 +5,7 @@ import { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { api } from "~/utils/api";
 
-const VehicleType = () => {
+const Drivers = () => {
   const { Search } = Input;
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
@@ -121,4 +121,4 @@ const VehicleType = () => {
   );
 };
 
-export default VehicleType;
+export default Drivers;

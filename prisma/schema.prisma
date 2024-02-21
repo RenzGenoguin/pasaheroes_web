@@ -57,6 +57,7 @@ model Pasahero {
     profileUrl String?
     firstName  String
     lastName   String
+    fullName String?
     gender       Gender
     emergencyContact String
     contactNo  String?
@@ -73,7 +74,7 @@ model Rating {
     rating     Float
     driverId   String
     pasaheroId Int
-    rideId     Int
+    rideId     Int 
     Driver     Driver   @relation(fields: [driverId], references: [id])
     Pasahero   Pasahero @relation(fields: [pasaheroId], references: [id])
     Ride       Ride?
@@ -96,7 +97,7 @@ model Comment {
 
 model Ride {
     id         Int       @id @default(autoincrement())
-    startRide  DateTime
+    startRide  DateTime @default(now())
     endRide    DateTime?
     driverId   String
     pasaheroId Int

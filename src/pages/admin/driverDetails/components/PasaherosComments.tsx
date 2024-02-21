@@ -25,10 +25,10 @@ const PasaherosComments = ({
           <div className=" flex max-h-96 min-h-full flex-col gap-2 overflow-scroll rounded-lg border border-solid border-gray-100 p-1">
             {[...comments].map((comment: any) => {
               return (
-                <div className=" rounded-md bg-gray-100 p-0 pt-2 shadow">
+                <div className=" rounded-md bg-gray-100 p-0 py-2  shadow">
                   <div className=" flex flex-row items-center justify-between p-0 px-5 pb-0">
                     <div className=" text-lg font-medium text-gray-700">
-                      Mary Ann Chatto
+                    {comment.Pasahero.firstName} {comment.Pasahero.lastName}
                     </div>
                     {comment.Ride?.Rating ? (
                       <div className=" left-14 flex items-center justify-center gap-1">
@@ -51,11 +51,11 @@ const PasaherosComments = ({
                     )}
                   </div>
 
-                  <div className=" mx-3 rounded-md bg-white p-2 px-5">
+                  <div className=" mx-3 rounded-md bg-white p-1 px-5 text-gray-700">
                     {comment.comment}
-                  </div>
-                  <div className=" flex w-full justify-end p-1 px-5 text-xs text-gray-700">
+                  <div className=" flex w-full justify-end p-1 pb-0 text-xs text-gray-400">
                     {dayjs(comment.createdAt).format("MMM D, YYYY h:mm A")}
+                  </div>
                   </div>
                 </div>
               );

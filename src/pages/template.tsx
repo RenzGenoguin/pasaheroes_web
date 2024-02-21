@@ -22,7 +22,7 @@ const siderItems = [
   },
   {
     icon: <HiUserGroup />,
-    title: "Pasahero",
+    title: "Pasaheros",
     url: "/admin/pasahero",
     key: "pasahero",
   },

@@ -188,6 +188,8 @@ export const driverRouter = createTRPCRouter({
         address: z.string(),
         vehicleTypeId: z.number(),
         profileUrl: z.string(),
+        gender: z.string(),
+        licenceNo: z.string()
       }),
     )
     .mutation(({ ctx, input }) => {
@@ -199,6 +201,8 @@ export const driverRouter = createTRPCRouter({
         address,
         vehicleTypeId,
         profileUrl,
+        gender,
+        licenceNo
       } = input;
       return ctx.prisma.driver.update({
         where: {
@@ -213,6 +217,8 @@ export const driverRouter = createTRPCRouter({
           address,
           vehicleTypeId,
           profileUrl,
+          gender: gender as Gender,
+          licenceNo
         },
       });
     }),

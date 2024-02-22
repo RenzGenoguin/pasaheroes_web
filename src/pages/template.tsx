@@ -15,16 +15,16 @@ const siderItems = [
     key: "dashboard",
   },
   {
+    icon: <HiUserGroup />,
+    title: "Pasaheros",
+    url: "/admin/pasaheros",
+    key: "pasaheros",
+  },
+  {
     icon: <ImUsers />,
     title: "Drivers",
     url: "/admin/drivers",
     key: "drivers",
-  },
-  {
-    icon: <HiUserGroup />,
-    title: "Pasaheros",
-    url: "/admin/pasahero",
-    key: "pasahero",
   },
   {
     icon: <FaCar />,
@@ -35,6 +35,11 @@ const siderItems = [
 ];
 
 const AdditionalPages = [
+  {
+    icon:  <HiUserGroup />,
+    title: "Pasahero's Details",
+    url: "/admin/pasaheroDetails",
+  },
   {
     icon: <ImUsers />,
     title: "Add New Driver",
@@ -59,7 +64,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
     if (!localStorage.getItem("userId")) {
       router.push("/login");
     } else {
-      if (pathname?.includes("login")) {
+      if (!pathname?.includes("admin")) {
         router.push("/admin");
       }
     }
@@ -74,6 +79,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
         }
       });
     }
+    console.log(active)
     if (active) {
       return (
         <div className=" flex flex-row items-center gap-2">

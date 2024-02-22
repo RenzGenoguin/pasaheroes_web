@@ -28,46 +28,32 @@ export const pasaheroRouter = createTRPCRouter({
       });
     }),
 
-  getDriver: publicProcedure
+  getPasahero: publicProcedure
     .input(
       z.object({
-        id: z.string(),
+        id: z.number(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const rating = await ctx.prisma.rating.aggregate({
-        where: {
-          driverId: input.id,
-        },
-        _avg: {
-          rating: true,
-        },
-        _count: true,
-      });
 
-      const driver = await ctx.prisma.driver.findUnique({
+      const pasahero = await ctx.prisma.pasahero.findUnique({
         where: {
           id: input.id,
         },
         include: {
-          Comment: {
+          Ride: {
             orderBy: {
               createdAt: "desc",
             },
             include: {
-              Ride: {
-                select: {
-                  Rating: true,
-                },
-              },
+              Comment: true,
+              Rating:true,
+              Driver:true,
+              Pasahero:true
             },
           },
-          vehicleType: true,
         },
       });
-      return {
-        ...driver,
-        rating: rating._count ? rating._avg.rating : null,
-      };
+    return pasahero
     }),
 });

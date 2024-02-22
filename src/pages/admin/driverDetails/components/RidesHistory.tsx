@@ -1,7 +1,7 @@
 import { DatePicker, Table } from "antd";
 import dayjs from "dayjs";
 
-var relativeTime = require("dayjs/plugin/relativeTime");
+import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 const RidesHistory = ({

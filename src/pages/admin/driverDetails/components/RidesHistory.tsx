@@ -76,7 +76,7 @@ const RidesHistory = ({
         columns={columns as any}
         scroll={{ y: 350 }}
         loading={driverRidesIsLoading}
-        pagination={false}
+        // pagination={false}
         className=" h-full  overflow-hidden rounded bg-white"
       />
     </div>

@@ -45,6 +45,17 @@ const PasaherosDetails = () => {
         ),
       },
       {
+        title: "Vehicle Type",
+        dataIndex: "Driver",
+        width: 150,
+        render: (data: any) => (
+          <div
+          >
+            {data.vehicleType.vehicleType}
+          </div>
+        ),
+      },
+      {
         title: "Status",
         dataIndex: "endRide",
         render: (data: any) => (

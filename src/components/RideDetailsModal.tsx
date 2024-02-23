@@ -9,7 +9,12 @@ const RideDetailsModal = ({ detailsModal, setDetailsModal }: any) => {
     setDetailsModal(null);
   };
   return (
-    <Modal open={!!detailsModal} onCancel={handleCancel} footer={[]} width={400}>
+    <Modal
+      open={!!detailsModal}
+      onCancel={handleCancel}
+      footer={[]}
+      width={450}
+    >
       {detailsModal ? (
         <div className=" flex flex-col">
           <div className=" flex w-full items-center justify-center">
@@ -60,6 +65,29 @@ const RideDetailsModal = ({ detailsModal, setDetailsModal }: any) => {
             </div>
           </div>
           <Divider className=" m-1 mt-2 p-1" />
+          <div className=" -mb-1 text-gray-400">Pasahero</div>
+          <div className=" ml-1 flex flex-col">
+            <div className=" text-xl font-medium text-gray-800">{`${detailsModal.Pasahero.firstName} ${detailsModal.Pasahero.lastName}`}</div>
+            <div className="  text-gray-500">
+              Contact No :{" "}
+              <span className=" font-medium text-gray-900">
+                {detailsModal.Pasahero.contactNo || "No Contact Provided"}
+              </span>
+            </div>
+            <div className="  text-gray-500">
+              Emergency Contact No :{" "}
+              <span className=" font-medium text-gray-900">
+                {detailsModal.Pasahero.emergencyContact}
+              </span>
+            </div>
+            <div className="  text-gray-500">
+              Address :{" "}
+              <span className=" font-medium text-gray-900">
+                {detailsModal.Pasahero.address}
+              </span>
+            </div>
+          </div>
+          <Divider className=" m-1 mt-2 p-1" />
           <div className=" text-gray-400">Trip Details</div>
           <div className=" ml-1 flex flex-col">
             <div className="  text-gray-500">
@@ -77,14 +105,16 @@ const RideDetailsModal = ({ detailsModal, setDetailsModal }: any) => {
                   </span>
                 </div>
                 <div className=" relative  flex items-center gap-1 text-gray-500">
-                 Pasahero's Rating :
+                  Pasahero's Rating :
                   {detailsModal.Rating ? (
                     <div className=" absolute left-36 mt-1 flex items-center justify-center gap-1">
                       <Rate
                         allowHalf
                         character={<FaStar size={18} />}
                         disabled
-                        value={parseFloat(detailsModal.Rating.rating.toFixed(1))}
+                        value={parseFloat(
+                          detailsModal.Rating.rating.toFixed(1),
+                        )}
                       />
                       <span className=" mb-1">
                         ({parseFloat(detailsModal.Rating.rating.toFixed(1))})
@@ -97,7 +127,7 @@ const RideDetailsModal = ({ detailsModal, setDetailsModal }: any) => {
                   )}
                 </div>
                 <div className="  text-gray-500">
-                 Pasahero's Comment :{" "}
+                  Pasahero's Comment :{" "}
                   {detailsModal.Comment ? (
                     <div className=" rounded-md  p-1 py-0 font-medium text-gray-700">
                       <div className=" rounded bg-blue-50 p-2 py-1 font-normal">

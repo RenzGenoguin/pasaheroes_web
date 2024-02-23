@@ -48,7 +48,11 @@ export const pasaheroRouter = createTRPCRouter({
             include: {
               Comment: true,
               Rating:true,
-              Driver:true,
+              Driver:{
+                include:{
+                  vehicleType:true
+                }
+              },
               Pasahero:true
             },
           },

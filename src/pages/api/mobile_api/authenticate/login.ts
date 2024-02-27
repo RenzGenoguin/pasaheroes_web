@@ -4,17 +4,21 @@ import { prisma } from '~/server/db'
 type ResponseData = {
   message: string;
   isError?:string;
-  isLoggedIn:boolean
+  isLoggedIn:boolean;
+  username?:string;
 }
  
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
+  console.log("ho")
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { username, password } = req.body;
-      const pasahero = await prisma.pasahero.findUnique({
+      const pasahero = await prisma.pasahero.findFirst({
         where:{
-          username
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          username:username
         }
       })
       if(!pasahero){
@@ -22,6 +26,6 @@ export default async function handler(
       }else if(pasahero?.password!==password){
         res.status(401).json({ message: 'Incorrect password', isError:'password', isLoggedIn:false });
       }else {
-        res.status(200).json({ message: 'Logged in', isLoggedIn:true });
+        res.status(200).json({ message: 'Logged in', isLoggedIn:true, username: pasahero.username });
       }
   }

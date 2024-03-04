@@ -15,7 +15,7 @@ export default async function handler(
 ) {
       const payload = req.body;
       try{
-        const pasahero  = await prisma.pasahero.findUnique({
+        const pasahero  = await prisma.pasahero.findFirst({
           where:{
             username:payload.username
           }
@@ -25,7 +25,8 @@ export default async function handler(
         }else{
           const createPasahero = await prisma.pasahero.create({
             data:{
-              ...payload
+              ...payload,
+              fullName: `${payload.firstName} ${payload.lastName}`
             }
           })
           if(createPasahero){

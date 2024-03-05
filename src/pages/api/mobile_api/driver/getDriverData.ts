@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '~/server/db'
  
 type ResponseData = {
-  pasahero?:any;
+  driver?:any;
 }
  
 export default async function handler(
@@ -10,16 +10,16 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const { username } = req.body;
-      const pasahero = await prisma.pasahero.findFirst({
+      const { id } = req.body;
+      const driver = await prisma.driver.findUnique({
         where:{
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          username:username
+          id:id as string
         }
       })
-      if(!pasahero){
-        res.status(401).json({pasahero:null });}
+      console.log(driver)
+      if(!driver){
+        res.status(200).json({driver:null });}
         else {
-        res.status(200).json({ pasahero });
+        res.status(200).json({ driver });
       }
   }

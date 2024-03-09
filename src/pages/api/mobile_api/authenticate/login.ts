@@ -21,7 +21,7 @@ export default async function handler(
         where:{
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           username:username
-        }
+        },
       })
       if(!pasahero){
         res.status(401).json({ message: 'Username not found', isError:'username', isLoggedIn:false });

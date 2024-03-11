@@ -12,29 +12,19 @@ export default async function handler(
 ) {
       try{
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const { id } = req.body;
-  
-        const rating = await prisma.rating.aggregate({
-          where: {
-            driverId: id as string,
-          },
-          _avg: {
-            rating: true,
-          },
-          _count: true,
-        });
+        const { driverId } = req.body;
         
-        const driver = await prisma.driver.findUnique({
+        const comments = await prisma.comment.findMany({
           where:{
-            id:id as string
+            driverId:driverId as string
           },
-          include:{
-            vehicleType:true
+        orderBy:{
+          createdAt:"desc"
         }})
-        if(!driver){
+        if(!comments){
           res.status(200).json({data:null, error:false });}
           else {
-          res.status(200).json({ data:{...driver, rating:rating._avg.rating}, error:false });
+          res.status(200).json({ data:comments, error:false });
         }
       }catch(e){
         res.status(401).json({ data:null, error:true });

@@ -3,17 +3,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { FaUserCog } from "react-icons/fa";
 import { FaPowerOff } from "react-icons/fa6";
 
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: (
-      <div className=" flex items-center gap-2 text-red-600">
-        <FaPowerOff />
-        Logout
-      </div>
-    ),
-  },
-];
 const MenuSider = ({ siderTitle, siderItems }: any) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -45,16 +34,15 @@ const MenuSider = ({ siderTitle, siderItems }: any) => {
           {siderTitle}
         </div>
         <div className=" flex w-full flex-col items-center gap-3 py-5">
-          {siderItems.map((menu: any, index: number) => {
+          {siderItems?.map((menu: any, index: number) => {
             return (
               <div
                 key={index}
                 onClick={changePage(menu.url)}
-                className={` item-center flex w-full cursor-pointer flex-row gap-2 rounded-lg p-1 px-4 pt-2  ${
-                  pathname === menu.url
-                    ? "bg-white bg-opacity-90 text-blue-800"
-                    : "text-white hover:bg-white hover:bg-opacity-10"
-                }`}
+                className={` item-center flex w-full cursor-pointer flex-row gap-2 rounded-lg p-1 px-4 pt-2  ${pathname === menu.url
+                  ? "bg-white bg-opacity-90 text-blue-800"
+                  : "text-white hover:bg-white hover:bg-opacity-10"
+                  }`}
               >
                 <div className="text-xl ">{menu.icon}</div>
                 <div className=" text-base font-medium ">{menu.title}</div>

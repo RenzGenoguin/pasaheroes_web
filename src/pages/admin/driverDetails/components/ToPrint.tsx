@@ -9,15 +9,15 @@ const ToPrint = ({ componentRef, driverData }: any) => {
     >
       <div className=" -mb-1 flex-col">Plate No.</div>
       <div className=" flex-col text-2xl font-semibold text-gray-800">
-        {driverData.plateNo}
+        {driverData?.plateNo}
       </div>
       <div className=" mb-3 flex-col text-lg text-gray-700">
-        ( {driverData.vehicleType.vehicleType} )
+        ( {driverData?.vehicleType?.vehicleType} )
       </div>
-      <QRCode value={(driverData.id as string) || ("" as string)} size={400} />
+      <QRCode value={(driverData?.id as string) || ("" as string)} size={400} />
       <div className=" -mb-1 mt-3 flex-col">Driver</div>
       <div className=" flex-col text-2xl font-semibold uppercase text-gray-800">
-        {driverData.fullName}
+        {driverData?.fullName}
       </div>
     </div>
   );

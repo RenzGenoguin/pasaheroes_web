@@ -19,12 +19,12 @@ const DriverDetails = ({
                 allowHalf
                 character={<FaStar size={30} />}
                 disabled
-                value={parseFloat(driverData.rating?.toFixed(1))}
+                value={parseFloat(driverData?.rating?.toFixed(1))}
               />
               <div className=" mb-1 flex items-center justify-center text-lg text-gray-500">
                 ({" "}
-                {driverData.rating !== null
-                  ? driverData.rating.toFixed(1)
+                {driverData?.rating !== null
+                  ? driverData?.rating.toFixed(1)
                   : "No Rating"}{" "}
                 )
               </div>
@@ -42,7 +42,7 @@ const DriverDetails = ({
               <div className=" mb-2">Driver's Photo</div>
               <div className=" h-5/6 w-full overflow-hidden rounded-lg bg-white shadow">
                 <img
-                  src={driverData.profileUrl}
+                  src={driverData?.profileUrl}
                   alt="Driver's Photo"
                   className=" h-full w-full object-contain"
                 />
@@ -55,13 +55,13 @@ const DriverDetails = ({
                   <div className=" flex flex-1 flex-col text-base text-gray-400">
                     <span className=" -mb-2 text-xs">Name</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                      {driverData.fullName}
+                      {driverData?.fullName}
                     </span>
                   </div>
                   <div className=" flex  flex-1 flex-col text-base text-gray-400">
                     <span className=" -mb-2 text-xs">Gender</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                      {driverData.gender}
+                      {driverData?.gender}
                     </span>
                   </div>
                 </div>
@@ -70,13 +70,13 @@ const DriverDetails = ({
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Address</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                      {driverData.address}
+                      {driverData?.address}
                     </span>
                   </div>
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Contact Number</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                      {driverData.contactNo}
+                      {driverData?.contactNo}
                     </span>
                   </div>
                 </div>
@@ -85,13 +85,13 @@ const DriverDetails = ({
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Vehicle Type</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                      {driverData.vehicleType.vehicleType}
+                      {driverData?.vehicleType.vehicleType}
                     </span>
                   </div>
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Plate Number</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                      {driverData.plateNo}
+                      {driverData?.plateNo}
                     </span>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ const DriverDetails = ({
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">License Number</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                      {driverData.licenceNo}
+                      {driverData?.licenceNo}
                     </span>
                   </div>
                 </div>
@@ -108,7 +108,7 @@ const DriverDetails = ({
                 <div className=" text-gray-5\400 flex items-center gap-1 text-base">
                   Date Registered :
                   <span className=" text-lg font-medium text-gray-600">
-                    {dayjs(driverData.createdAt).format("MMMM DD, YYYY")}
+                    {dayjs(driverData?.createdAt).format("MMMM DD, YYYY")}
                   </span>
                 </div>
               </div>
@@ -125,7 +125,7 @@ const DriverDetails = ({
           Print Driver's QR Code
         </button>
         <div className=" flex items-center justify-center overflow-hidden rounded-lg bg-white">
-          <QRCode value={(driverData.id as string) || ("" as string)} />
+          <QRCode value={(driverData?.id as string) || ("" as string)} />
         </div>
       </div>
     </div>

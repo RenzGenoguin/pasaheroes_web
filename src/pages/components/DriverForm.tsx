@@ -3,7 +3,6 @@ import { IoMdAddCircle } from "react-icons/io";
 import UploadImage from "./uploadImage";
 import { IoSend } from "react-icons/io5";
 import { api } from "~/utils/api";
-import { FaEdit } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 const DriverForm = ({
@@ -155,20 +154,20 @@ const DriverForm = ({
           </button>
           <button
             type="submit"
-            disabled={submitIsLoading()}
+            disabled={submitIsLoading}
             className=" mb-5 flex w-40 cursor-pointer items-center justify-center gap-3 rounded border border-none border-cyan-600 bg-green-600 px-10 py-1 text-base text-white hover:brightness-110 disabled:opacity-50"
           >
-            {submitIsLoading() ? "Saving..." : "Save"}
+            {submitIsLoading ? "Saving..." : "Save"}
             {/* <IoSend /> */}
           </button>
         </div>
       ) : (
         <button
           type="submit"
-          disabled={submitIsLoading()}
+          disabled={submitIsLoading}
           className=" mx-auto mb-5 flex h-10 cursor-pointer items-center justify-center gap-3 rounded border border-cyan-600 bg-blue-700 px-10 text-lg text-white hover:brightness-110 disabled:opacity-50"
         >
-          {submitIsLoading() ? "Adding..." : "Add Driver"}
+          {submitIsLoading ? "Adding..." : "Add Driver"}
           <IoSend />
         </button>
       )}

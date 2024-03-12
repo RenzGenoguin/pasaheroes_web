@@ -13,7 +13,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  console.log("ho")
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { username, password } = req.body;
       console.log( username, password )

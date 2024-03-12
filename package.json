@@ -24,6 +24,7 @@
     "antd": "^5.9.0",
     "attr-accept": "^2.2.2",
     "axios": "^1.6.7",
+    "caniuse-lite": "^1.0.30001597",
     "dayjs": "^1.11.9",
     "firebase": "^10.8.0",
     "jsonwebtoken": "^9.0.2",

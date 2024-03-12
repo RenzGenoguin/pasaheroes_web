@@ -38,9 +38,7 @@ const VehicleType = () => {
       },
     });
 
-  const submitIsLoading = () => {
-    return createDriverLoading || createIsLoading;
-  };
+  const submitIsLoading = createDriverLoading || createIsLoading;
 
   const onFinish = async (e: {
     firstName: string;

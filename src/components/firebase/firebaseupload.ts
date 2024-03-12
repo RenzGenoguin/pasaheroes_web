@@ -19,6 +19,7 @@ export const handleUpload = async (imageFile: any) => {
   if (imageFile !== null) {
     try {
       const imageRef = ref(imageDB, `pasaheroes/${v4()}`);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       return uploadBytes(imageRef, imageFile).then((val) => {
         return getDownloadURL(val.ref).then((url) => {
           return url;

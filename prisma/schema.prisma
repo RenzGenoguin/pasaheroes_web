@@ -1,116 +1,113 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-}
-
-enum Gender {
-    Male
-    Female
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Admin {
-    id        Int      @id @default(autoincrement())
-    name      String
-    password  String
-    username  String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  password  String
+  username  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model VehicleType {
-    id          Int      @id @default(autoincrement())
-    vehicleType String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    Driver      Driver[]
+  id          Int      @id @default(autoincrement())
+  vehicleType String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Driver      Driver[]
 }
 
 model Driver {
-    id            String      @id @default(cuid())
-    profileUrl    String
-    firstName     String
-    lastName      String
-    fullName      String
-    plateNo       String
-    licenceNo     String
-    gender        Gender
-    contactNo     String
-    address       String
-    vehicleTypeId Int
-    vehicleType   VehicleType @relation(fields: [vehicleTypeId], references: [id])
-    createdAt     DateTime    @default(now())
-    updatedAt     DateTime    @updatedAt
-    Rating        Rating[]
-    Comment       Comment[]
-    Ride          Ride[]
+  id            String      @id @default(cuid())
+  profileUrl    String
+  firstName     String
+  lastName      String
+  fullName      String
+  plateNo       String
+  licenceNo     String
+  gender        Gender
+  contactNo     String
+  address       String
+  vehicleTypeId Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  Comment       Comment[]
+  vehicleType   VehicleType @relation(fields: [vehicleTypeId], references: [id])
+  Rating        Rating[]
+  Ride          Ride[]
 }
 
 model Pasahero {
-    id               Int       @id @default(autoincrement())
-    username         String    @unique
-    password         String
-    profileUrl       String?
-    firstName        String
-    lastName         String
-    fullName         String?
-    gender           Gender
-    emergencyContact String
-    contactNo        String?
-    address          String
-    createdAt        DateTime  @default(now())
-    updatedAt        DateTime  @updatedAt
-    Rating           Rating[]
-    Comment          Comment[]
-    Ride             Ride[]
+  id               Int       @id @default(autoincrement())
+  username         String    @unique
+  password         String
+  profileUrl       String?
+  firstName        String
+  lastName         String
+  fullName         String?
+  gender           Gender
+  emergencyContact String
+  contactNo        String?
+  address          String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  Comment          Comment[]
+  Rating           Rating[]
+  Ride             Ride[]
 
-    @@index([firstName, lastName])
+  @@index([firstName, lastName])
 }
 
 model Rating {
-    id         Int       @id @default(autoincrement())
-    rating     Float
-    rideId     Int
-    Ride       Ride?
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    Driver     Driver?   @relation(fields: [driverId], references: [id])
-    driverId   String?
-    Pasahero   Pasahero? @relation(fields: [pasaheroId], references: [id])
-    pasaheroId Int?
+  id         Int       @id @default(autoincrement())
+  rating     Float
+  rideId     Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  driverId   String?
+  pasaheroId Int?
+  Driver     Driver?   @relation(fields: [driverId], references: [id])
+  Pasahero   Pasahero? @relation(fields: [pasaheroId], references: [id])
+  Ride       Ride?
 }
 
 model Comment {
-    id         Int       @id @default(autoincrement())
-    comment    String
-    rideId     Int
-    Ride       Ride?
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    Driver     Driver?   @relation(fields: [driverId], references: [id])
-    driverId   String?
-    Pasahero   Pasahero? @relation(fields: [pasaheroId], references: [id])
-    pasaheroId Int?
+  id         Int       @id @default(autoincrement())
+  comment    String
+  rideId     Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  driverId   String?
+  pasaheroId Int?
+  Driver     Driver?   @relation(fields: [driverId], references: [id])
+  Pasahero   Pasahero? @relation(fields: [pasaheroId], references: [id])
+  Ride       Ride?
 }
 
 model Ride {
-    id         Int       @id @default(autoincrement())
-    startRide  DateTime  @default(now())
-    endRide    DateTime?
-    driverId   String
-    pasaheroId Int
-    ratingId   Int?      @unique
-    commentId  Int?      @unique
-    Driver     Driver    @relation(fields: [driverId], references: [id])
-    Pasahero   Pasahero  @relation(fields: [pasaheroId], references: [id])
-    Rating     Rating?   @relation(fields: [ratingId], references: [id])
-    Comment    Comment?  @relation(fields: [commentId], references: [id])
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
+  id         Int       @id @default(autoincrement())
+  startRide  DateTime  @default(now())
+  endRide    DateTime?
+  driverId   String
+  pasaheroId Int
+  ratingId   Int?      @unique
+  commentId  Int?      @unique
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Comment    Comment?  @relation(fields: [commentId], references: [id])
+  Driver     Driver    @relation(fields: [driverId], references: [id])
+  Pasahero   Pasahero  @relation(fields: [pasaheroId], references: [id])
+  Rating     Rating?   @relation(fields: [ratingId], references: [id])
+}
+
+enum Gender {
+  Male
+  Female
 }

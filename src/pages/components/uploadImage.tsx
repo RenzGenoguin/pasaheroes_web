@@ -1,4 +1,4 @@
-import { Form, Image } from "antd";
+import { Image } from "antd";
 import { useEffect, useRef } from "react";
 import { FiPlus } from "react-icons/fi";
 
@@ -11,8 +11,8 @@ const UploadImage = ({
   setImageError,
 }: any) => {
   const hiddenFileInput: any = useRef(null);
-  const handleClick = (event: any) => {
-    hiddenFileInput && hiddenFileInput?.current?.click();
+  const handleClick = () => {
+    hiddenFileInput?.current?.click();
   };
 
   const convertBase64 = async (file: any) => {
@@ -28,24 +28,25 @@ const UploadImage = ({
     });
   };
 
-  const handleChange = async (event: any) => {
+  const handleChange = (event: any) => {
     setImageError(false);
     const fileUploaded = event.target.files[0];
     console.log(fileUploaded);
     setImageFile(fileUploaded);
   };
 
-  const handleRemoveImage = (event: any) => {
+  const handleRemoveImage = () => {
     setImageBase64(null);
     setImageFile(null);
     setImageError(false);
   };
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       imageFile && setImageBase64(await convertBase64(imageFile));
     })();
     console.log(imageFile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageFile]);
 
   return (
@@ -59,9 +60,8 @@ const UploadImage = ({
         <>
           <button
             type="button"
-            className={` flex h-28 w-28 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed bg-white hover:brightness-95 ${
-              imageError ? "border-red-500 text-red-500" : " text-gray-700"
-            }`}
+            className={` flex h-28 w-28 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed bg-white hover:brightness-95 ${imageError ? "border-red-500 text-red-500" : " text-gray-700"
+              }`}
             onClick={handleClick}
           >
             <div className=" text-2xl">

@@ -18,7 +18,7 @@ const VehicleType = () => {
       onSuccess: () => {
         form.resetFields();
         setActiveVehicleType(null);
-        refetch();
+        void refetch();
         toast.success("Vehicle Type added!");
       },
     });
@@ -27,7 +27,7 @@ const VehicleType = () => {
       onSuccess: () => {
         form.resetFields();
         setActiveVehicleType(null);
-        refetch();
+        void refetch();
         toast.success("Vehicle Type deleted!");
       },
     });
@@ -35,7 +35,7 @@ const VehicleType = () => {
     api.vehicleType.editvehicleType.useMutation({
       onSuccess: () => {
         form2.resetFields();
-        refetch();
+        void refetch();
         toast.success("Vehicle Type edited!");
         setActiveVehicleType(null);
       },

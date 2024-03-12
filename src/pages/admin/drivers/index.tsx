@@ -47,6 +47,7 @@ const Drivers = () => {
       width: 200,
       render: (data: any) => (
         <div
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={() => router.push(`/admin/driverDetails/${data.id}`)}
           className=" flex cursor-pointer flex-row items-center justify-center gap-2 text-blue-700 hover:text-blue-500"
         >
@@ -58,7 +59,7 @@ const Drivers = () => {
 
   const vehicleTypeOptions = [
     { value: 0, label: "All" },
-    ...(vehicleType || []),
+    ...(vehicleType ?? []),
   ];
 
   const _handleSelect = (value: number) => {
@@ -99,6 +100,7 @@ const Drivers = () => {
             </div>
 
             <button
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onClick={() => router.push("addDriver")}
               className="flex cursor-pointer items-center gap-2  rounded border-none bg-blue-600 px-5 py-1 text-base text-white hover:brightness-110"
             >

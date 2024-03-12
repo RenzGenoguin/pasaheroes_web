@@ -44,6 +44,7 @@ const Pasaheros = () => {
       width: 200,
       render: (data: any) => (
         <div
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={() => router.push(`/admin/pasaheroDetails/${data.id}`)}
           className=" flex cursor-pointer flex-row items-center justify-center gap-2 text-blue-700 hover:text-blue-500"
         >

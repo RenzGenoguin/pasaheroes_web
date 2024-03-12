@@ -14,7 +14,7 @@ const DriverDetails = ({
         <div className=" flex flex-col  h-full">
           <div className=" flex flex-row items-center justify-between">
             <div className=" flex flex-row items-center gap-2">
-              <div className=" text-base">Driver's Rating :</div>
+              <div className=" text-base">{"Driver's Rating :"}</div>
               <Rate
                 allowHalf
                 character={<FaStar size={30} />}
@@ -53,58 +53,58 @@ const DriverDetails = ({
               <div className=" ml-2 mt-2 flex flex-col gap-2 border-0 border-l-8 border-solid border-green-500 p-4 py-0 text-base">
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-1 flex-col text-base text-gray-400">
-                    <span className=" -mb-2 text-xs">Name</span> 
+                    <span className=" -mb-2 text-xs">Name</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                       {driverData.fullName}
                     </span>
                   </div>
                   <div className=" flex  flex-1 flex-col text-base text-gray-400">
-                    <span className=" -mb-2 text-xs">Gender</span> 
+                    <span className=" -mb-2 text-xs">Gender</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                       {driverData.gender}
                     </span>
                   </div>
                 </div>
-                <Divider className=" p-0 m-0"/>
+                <Divider className=" p-0 m-0" />
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
-                    <span className=" -mb-2 text-xs">Address</span> 
+                    <span className=" -mb-2 text-xs">Address</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                       {driverData.address}
                     </span>
                   </div>
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
-                    <span className=" -mb-2 text-xs">Contact Number</span> 
+                    <span className=" -mb-2 text-xs">Contact Number</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                       {driverData.contactNo}
                     </span>
                   </div>
                 </div>
-                <Divider className=" p-0 m-0"/>
+                <Divider className=" p-0 m-0" />
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
-                    <span className=" -mb-2 text-xs">Vehicle Type</span> 
+                    <span className=" -mb-2 text-xs">Vehicle Type</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                       {driverData.vehicleType.vehicleType}
                     </span>
                   </div>
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
-                    <span className=" -mb-2 text-xs">Plate Number</span> 
+                    <span className=" -mb-2 text-xs">Plate Number</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                       {driverData.plateNo}
                     </span>
                   </div>
                 </div>
-                <Divider className=" p-0 m-0"/>
+                <Divider className=" p-0 m-0" />
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
-                    <span className=" -mb-2 text-xs">License Number</span> 
+                    <span className=" -mb-2 text-xs">License Number</span>
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                       {driverData.licenceNo}
                     </span>
                   </div>
                 </div>
-                <Divider className=" p-0 m-0"/>
+                <Divider className=" p-0 m-0" />
                 <div className=" text-gray-5\400 flex items-center gap-1 text-base">
                   Date Registered :
                   <span className=" text-lg font-medium text-gray-600">

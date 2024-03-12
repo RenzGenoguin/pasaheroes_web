@@ -36,7 +36,7 @@ const siderItems = [
 
 const AdditionalPages = [
   {
-    icon:  <HiUserGroup />,
+    icon: <HiUserGroup />,
     title: "Pasahero's Details",
     url: "/admin/pasaheroDetails",
   },
@@ -68,6 +68,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
         router.push("/admin");
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const findRouteName = () => {

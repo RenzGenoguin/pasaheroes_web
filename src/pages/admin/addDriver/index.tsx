@@ -5,7 +5,7 @@ import { api } from "~/utils/api";
 import { handleUpload } from "~/components/firebase/firebaseupload";
 import toast from "react-hot-toast";
 import DriverForm from "../../components/DriverForm";
-import { Gender } from "@prisma/client";
+import { type Gender } from "@prisma/client";
 
 const VehicleType = () => {
   const [form] = Form.useForm();
@@ -25,7 +25,7 @@ const VehicleType = () => {
         setCreateDriverLoading(false);
         form.resetFields();
         toast.success("Driver Added!");
-        router.push("/admin/drivers");
+        void router.push("/admin/drivers");
       },
     });
 

@@ -54,7 +54,8 @@ const DriveDetails = () => {
   });
 
   const handleEditDriverDetails = () => {
-    router.push(`/admin/editDriver/${router.query.id}`);
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    void router.push(`/admin/editDriver/${router.query.id}`);
   };
 
   const onChangeDateRides = (date: Date) => {

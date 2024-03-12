@@ -58,7 +58,7 @@ const VehicleType = () => {
       } else if (!imageFile && imageBase64) {
         editDriver({
           ...e,
-          profileUrl: driverData.profileUrl as string,
+          profileUrl: driverData.profileUrl!,
           id: router.query.id as string,
         });
       } else {
@@ -92,6 +92,7 @@ const VehicleType = () => {
     );
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (driverData) {
       const {

@@ -2,7 +2,7 @@ import { api } from "~/utils/api";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-import { Form, Input, Layout } from "antd";
+import { Form, Input } from "antd";
 import { MdEmail } from "react-icons/md";
 import { IoIosUnlock } from "react-icons/io";
 

@@ -148,7 +148,7 @@ const Admin = () => {
       </div>
       <div className=" overflow-hidden rounded-xl shadow">
         <Table
-          dataSource={rides || []}
+          dataSource={rides ?? []}
           columns={columns as any}
           scroll={{ y: 350 }}
           loading={ridesIsLoading}

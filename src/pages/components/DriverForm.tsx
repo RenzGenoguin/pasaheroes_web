@@ -90,7 +90,7 @@ const DriverForm = ({
             placeholder="Select Vehicle Type"
             className=" w-full"
             size="large"
-            options={[...(vehicleType || [])]}
+            options={[...(vehicleType ?? [])]}
           />
         </Form.Item>
         <Form.Item
@@ -121,7 +121,7 @@ const DriverForm = ({
             placeholder="Select Gender"
             className=" w-full"
             size="large"
-            options={[{label:"Male", value:"Male"},{label:"Female", value:"Female"}]}
+            options={[{ label: "Male", value: "Male" }, { label: "Female", value: "Female" }]}
           />
         </Form.Item>
       </div>

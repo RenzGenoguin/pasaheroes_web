@@ -1,4 +1,4 @@
-import { Dropdown, MenuProps } from "antd";
+import { Dropdown, type MenuProps } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import { FaUserCog } from "react-icons/fa";
 import { FaPowerOff } from "react-icons/fa6";

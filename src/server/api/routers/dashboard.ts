@@ -32,6 +32,9 @@ export const dashboardRouter = createTRPCRouter({
             { startRide: { gte: dayjs(input.date).startOf("day").toDate() } },
           ],
         },
+        orderBy:{
+          startRide:"desc"
+        },
         include: {
           Pasahero: true,
           Comment: true,

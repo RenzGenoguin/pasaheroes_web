@@ -74,29 +74,29 @@ model Pasahero {
 }
 
 model Rating {
-    id         Int      @id @default(autoincrement())
+    id         Int       @id @default(autoincrement())
     rating     Float
-    driverId   String
-    pasaheroId Int
     rideId     Int
-    Driver     Driver   @relation(fields: [driverId], references: [id])
-    Pasahero   Pasahero @relation(fields: [pasaheroId], references: [id])
     Ride       Ride?
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    Driver     Driver?   @relation(fields: [driverId], references: [id])
+    driverId   String?
+    Pasahero   Pasahero? @relation(fields: [pasaheroId], references: [id])
+    pasaheroId Int?
 }
 
 model Comment {
-    id         Int      @id @default(autoincrement())
+    id         Int       @id @default(autoincrement())
     comment    String
-    driverId   String
-    pasaheroId Int
     rideId     Int
-    Driver     Driver   @relation(fields: [driverId], references: [id])
-    Pasahero   Pasahero @relation(fields: [pasaheroId], references: [id])
     Ride       Ride?
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    Driver     Driver?   @relation(fields: [driverId], references: [id])
+    driverId   String?
+    Pasahero   Pasahero? @relation(fields: [pasaheroId], references: [id])
+    pasaheroId Int?
 }
 
 model Ride {

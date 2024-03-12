@@ -18,6 +18,14 @@ export default async function handler(
           where:{
             driverId:driverId as string
           },
+          include:{
+            Pasahero:true,
+            Ride:{
+              include:{
+              Rating:true
+              }
+            }
+          },
         orderBy:{
           createdAt:"desc"
         }})

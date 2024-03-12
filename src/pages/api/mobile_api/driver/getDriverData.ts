@@ -29,7 +29,7 @@ export default async function handler(
             id:id as string
           },
           include:{
-            vehicleType:true
+            vehicleType:true,
         }})
         if(!driver){
           res.status(200).json({data:null, error:false });}

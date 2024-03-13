@@ -40,7 +40,7 @@ const DriverDetails = ({
           <div className=" flex flex-row  gap-3 px-0 2xl:px-5 h-full">
             <div className="p-0 2xl:p-2">
               <div className=" mb-2">Driver's Photo</div>
-              <div className=" h-5/6 w-full overflow-hidden rounded-lg bg-white shadow">
+              <div className=" h-56 w-full overflow-hidden rounded-lg bg-white shadow">
                 <img
                   src={driverData?.profileUrl}
                   alt="Driver's Photo"

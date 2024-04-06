@@ -5,7 +5,6 @@ import RideDetailsModal from "~/components/RideDetailsModal";
 import { api } from "~/utils/api";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
-
 const Admin = () => {
   const [rideType, setRideType] = useState<null | string>(null);
   const [ridesModal, setRidesModal] = useState<any>(null);

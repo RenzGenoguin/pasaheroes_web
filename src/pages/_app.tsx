@@ -1,4 +1,6 @@
+
 import { type AppType } from "next/app";
+import 'leaflet/dist/leaflet.css';
 
 import { api } from "~/utils/api";
 

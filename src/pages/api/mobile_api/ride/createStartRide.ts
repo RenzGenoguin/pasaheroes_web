@@ -12,12 +12,15 @@ export default async function handler(
 ) {
       try{
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const { pasaheroId, driverId } = req.body;
-  
+        const { pasaheroId, driverId,
+          startLat,
+          startLong } = req.body;
         const ride = await prisma.ride.create({
           data:{
             pasaheroId,
-            driverId
+            driverId,
+            startLat,
+            startLong
           },
           include:{
               Rating:true,

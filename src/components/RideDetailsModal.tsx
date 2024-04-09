@@ -148,7 +148,7 @@ const RideDetailsModal = ({ detailsModal, setDetailsModal }: any) => {
             </div>
           </div>
         <div className=" flex-1">
-          <RideMap start={[ 12.071508391800592, 124.58705939033526]} end={[12.069714323408826,124.58849705436769]}/>
+          <RideMap start={[ detailsModal.startLat, detailsModal.startLong]} end={[detailsModal.endLat, detailsModal.endLong]}/>
         </div>
         </div>
        </div>

@@ -38,7 +38,6 @@ const Admin = () => {
       return `Trips on ${dayjs(ridesDate).format("MMM DD, YYYY")}`;
     }
   };
-
   const vehicleTypeOptions = [
     {
       label: "All",

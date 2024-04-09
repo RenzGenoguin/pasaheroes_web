@@ -13,14 +13,18 @@ export default async function handler(
 ) {
       try{
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const { rideId } = req.body;
+        const { rideId,
+          endLat,
+          endLong  } = req.body;
   
         const ride = await prisma.ride.update({
           where:{
-            id:rideId
+            id:rideId,
           },
           data:{
-            endRide:dayjs().toDate()
+            endRide:dayjs().toDate(),
+            endLat,
+            endLong
           }
         });
         if(!ride){

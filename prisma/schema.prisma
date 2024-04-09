@@ -95,6 +95,10 @@ model Ride {
   id         Int       @id @default(autoincrement())
   startRide  DateTime  @default(now())
   endRide    DateTime?
+  startLong Float?
+  startLat Float?
+  endLong Float?
+  endLat Float?
   driverId   String
   pasaheroId Int
   ratingId   Int?      @unique

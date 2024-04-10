@@ -11,9 +11,9 @@ const RideMap = ({ start, end }: { start: number[], end: number[] }) => {
 
       const map = L.map('map').setView(start, 20);
 
-      // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      //   attribution: '© OpenStreetMap contributors'
-      // }).addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        // attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
 
       const customIcon = (image: string) => {
         if (image) {

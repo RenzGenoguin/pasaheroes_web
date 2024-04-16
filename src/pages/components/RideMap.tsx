@@ -44,6 +44,9 @@ const RideMap = ({ start, end }: { start: number[], end: number[] }) => {
         }
       });
 
+      // Add a straight line between start and end points
+      L.polyline([start, end],{color:'gray'}).addTo(map);
+
       return () => {
         map.remove();
       };

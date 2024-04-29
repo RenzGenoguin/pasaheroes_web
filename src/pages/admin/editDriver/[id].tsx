@@ -6,12 +6,16 @@ import { handleUpload } from "~/components/firebase/firebaseupload";
 import toast from "react-hot-toast";
 import DriverForm from "~/pages/components/DriverForm";
 import { Gender } from "@prisma/client";
+import dayjs from "dayjs";
 
 const VehicleType = () => {
   const [form] = Form.useForm();
   const [imageFile, setImageFile] = useState<any>(null);
   const [imageBase64, setImageBase64] = useState<any>(null);
   const [imageError, setImageError] = useState<boolean>(false);
+  const [liscenseFile, setLicenseFile] = useState<any>(null);
+  const [liscenseBase64, setLiscenseBase64] = useState<any>(null);
+  const [liscenseError, setLiscenseError] = useState<boolean>(false);
   const [createDriverLoading, setCreateDriverLoading] =
     useState<boolean>(false);
   const router = useRouter();
@@ -49,6 +53,7 @@ const VehicleType = () => {
     vehicleTypeId: number;
     licenceNo: string;
     gender: Gender;
+    licenceExpiration: any;
   }) => {
     if (driverData) {
       if (!imageFile && !imageBase64) {
@@ -56,6 +61,7 @@ const VehicleType = () => {
       } else if (!imageFile && imageBase64) {
         editDriver({
           ...e,
+          licenceExpiration:dayjs(e.licenceExpiration).toDate(),
           profileUrl: driverData.profileUrl!,
           id: router.query.id as string,
         });
@@ -102,19 +108,27 @@ const VehicleType = () => {
         vehicleTypeId,
         gender,
         licenceNo,
+        registration,licenceExpiration
       } = driverData;
       if (!imageFile) {
         setImageBase64(driverData.profileUrl);
+      } 
+      if(!liscenseFile && driverData.licencePhotoUrl){
+        setLiscenseBase64(driverData.licencePhotoUrl)
       }
       form.setFieldsValue({
         firstName,
         lastName,
         address,
         contactNo,
-        plateNo,
         vehicleTypeId,
         gender,
-        licenceNo,
+        licenceNo:licenceNo,
+        plateNo:plateNo,
+        or:registration?.or ?? null,
+        cr:registration?.cr ?? null,
+        franchiseNo:registration?.franchiseNo ?? null,
+        licenceExpiration:dayjs(licenceExpiration)
       });
     }
   }, [driverData]);
@@ -133,6 +147,12 @@ const VehicleType = () => {
           imageBase64={imageBase64}
           imageError={imageError}
           setImageError={setImageError}
+          liscenseFile={liscenseFile} 
+          setLicenseFile={setLicenseFile}
+          liscenseBase64={liscenseBase64}
+          setLiscenseBase64={setLiscenseBase64}
+          liscenseError={liscenseError}
+          setLiscenseError={setLiscenseError}
           submitIsLoading={submitIsLoading}
           isEdit={true}
         />

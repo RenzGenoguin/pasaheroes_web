@@ -6,12 +6,16 @@ import { handleUpload } from "~/components/firebase/firebaseupload";
 import toast from "react-hot-toast";
 import DriverForm from "../../components/DriverForm";
 import { type Gender } from "@prisma/client";
+import dayjs from "dayjs";
 
 const VehicleType = () => {
   const [form] = Form.useForm();
   const [imageFile, setImageFile] = useState<any>(null);
   const [imageBase64, setImageBase64] = useState<any>(null);
   const [imageError, setImageError] = useState<boolean>(false);
+  const [liscenseFile, setLicenseFile] = useState<any>(null);
+  const [liscenseBase64, setLiscenseBase64] = useState<any>(null);
+  const [liscenseError, setLiscenseError] = useState<boolean>(false);
   const [createDriverLoading, setCreateDriverLoading] =
     useState<boolean>(false);
   const router = useRouter();
@@ -42,27 +46,49 @@ const VehicleType = () => {
     vehicleTypeId: number;
     licenceNo: string;
     gender: Gender;
+    licenceExpiration: any;
   }) => {
-    if (!imageFile) {
-      setImageError(true);
+    if (!imageFile || (e.licenceNo && !liscenseFile)) {
+      setImageError(!imageFile);
+      setLiscenseError(!!!liscenseFile);
     } else {
+      console.log({...e}, dayjs(e.licenceExpiration).toDate())
       setCreateDriverLoading(true);
-      await handleUpload(imageFile).then((imageUrl) => {
-        if (!imageUrl) {
+      const imageUrl = await handleUpload(imageFile)
+      if(e.plateNo){
+        const licenseUrl = await handleUpload(liscenseFile)
+        if (imageUrl && licenseUrl) {
+          createDriver({
+            ...e,
+            profileUrl: imageUrl,
+            licencePhotoUrl: licenseUrl,
+            licenceExpiration:dayjs(e.licenceExpiration).toDate()
+          });
+        } else if(!imageUrl) {
           setImageError(true);
           setCreateDriverLoading(false);
-        } else {
+        }else if(!licenseUrl){
+          setLiscenseError(true);
+          setCreateDriverLoading(false);
+        }
+      }else {
+        
+        if (imageUrl) {
           createDriver({
             ...e,
             profileUrl: imageUrl,
           });
+        } else {
+          setImageError(true);
+          setCreateDriverLoading(false);
         }
-      });
+      }
     }
   };
   const onFinishFailed = () => {
-    if (!imageFile) {
-      setImageError(true);
+    if (!imageFile || !liscenseFile) {
+      setImageError(!imageFile);
+      setLiscenseError(!liscenseFile);
     }
   };
 
@@ -80,7 +106,14 @@ const VehicleType = () => {
           imageBase64={imageBase64}
           imageError={imageError}
           setImageError={setImageError}
+          liscenseFile={liscenseFile} 
+          setLicenseFile={setLicenseFile}
+          liscenseBase64={liscenseBase64}
+          setLiscenseBase64={setLiscenseBase64}
+          liscenseError={liscenseError}
+          setLiscenseError={setLiscenseError}
           submitIsLoading={submitIsLoading}
+          isEdit={false}
         />
       </div>
     </div>

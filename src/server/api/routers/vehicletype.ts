@@ -7,12 +7,14 @@ export const vehicleTypeRouter = createTRPCRouter({
     .input(
       z.object({
         vehicleType: z.string(),
+        required:z.boolean()
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const vehicleType = await ctx.prisma.vehicleType.create({
         data: {
           vehicleType: input.vehicleType,
+          driverPapersRequired: input.required
         },
       });
       return vehicleType;
@@ -45,6 +47,7 @@ export const vehicleTypeRouter = createTRPCRouter({
           return {
             value: data.id,
             label: data.vehicleType,
+            required: data.driverPapersRequired
           };
         });
       }

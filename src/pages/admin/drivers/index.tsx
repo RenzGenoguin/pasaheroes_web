@@ -10,6 +10,7 @@ const Drivers = () => {
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
   const [vehicleId, setVehicleId] = useState<number>(0);
+  const [status, setStatus] = useState<"PENDING" | "APPROVED" | "DECLINED">("PENDING");
 
   const { data: vehicleType } = api.vehicleType.getAllvehicleTypes.useQuery({
     searchText: "",
@@ -23,6 +24,7 @@ const Drivers = () => {
   } = api.driver.getAllDriver.useQuery({
     searchText,
     vehicleId: vehicleId ? vehicleId : null,
+    status,
   });
 
   const columns: ColumnsType<any> = [
@@ -71,7 +73,7 @@ const Drivers = () => {
       <div className=" flex flex-1 flex-col">
         <div className=" min-h-96 flex flex-col rounded  bg-white">
           <div className=" flex w-full items-center justify-between">
-            <div className=" flex w-2/5 flex-row gap-2 p-5 px-2 text-gray-500">
+            <div className=" flex w-3/5 flex-row gap-2 p-5 px-2 text-gray-500">
               <div className=" flex flex-1 flex-col gap-1">
                 <div>Search Driver</div>
                 <Search
@@ -95,6 +97,16 @@ const Drivers = () => {
                   value={vehicleId}
                   onChange={_handleSelect}
                   options={vehicleTypeOptions}
+                />
+              </div>
+              <div className=" flex w-40 flex-col gap-1">
+                <div>Status</div>
+                <Select
+                  className=" w-full"
+                  size="large"
+                  value={status}
+                  onChange={setStatus}
+                  options={[{label:"Pending", value:"PENDING"},{label:"Approved", value:"APPROVED"},{label:"Declined", value:"DECLINED"}]}
                 />
               </div>
             </div>

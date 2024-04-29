@@ -1,4 +1,4 @@
-import { Form, Input, Modal, Table } from "antd";
+import { Form, Input, Modal, Switch, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -49,7 +49,7 @@ const VehicleType = () => {
     searchText,
   });
 
-  const onFinish = (e: { vehicleType: string }) => {
+  const onFinish = (e: { vehicleType: string, required: boolean }) => {
     createVehicleType({
       ...e,
     });
@@ -98,6 +98,16 @@ const VehicleType = () => {
       ),
     },
     {
+      title: "Registration",
+      dataIndex: "driverPapersRequired",
+      render: (data) => (
+        <>
+          {data ? <div className=" text-blue-700">Required</div>:<div className=" text-gray-600">Not Required</div>
+    }
+        </>
+      ),
+    },
+    {
       title: "Action",
       align: "center",
       width: 200,
@@ -128,8 +138,10 @@ const VehicleType = () => {
   useEffect(() => {
     if (activeVehicleType?.data) {
       const data = activeVehicleType.data;
+      console.log(data.driverPapersRequired)
       form2.setFieldsValue({
         vehicleType: data.vehicleType,
+        required: true
       });
     }
   }, [activeVehicleType]);
@@ -159,24 +171,32 @@ const VehicleType = () => {
               autoComplete="off"
               className=" flex w-full flex-col"
             >
+            <div className=" mb-2 mt-2 text-sm text-gray-500">
+              Vehicle Type
+            </div>
+            <Form.Item
+              name={"vehicleType"}
+              rules={[
+                { required: true, message: "Vehicle type is required" },
+              ]}
+            >
+              <Input placeholder="Input Vehicle Type" />
+            </Form.Item>
               <div className=" mb-2 mt-2 text-sm text-gray-500">
-                Vehicle Type
+                Driver's License and Registration Papers Required
               </div>
               <Form.Item
-                name={"vehicleType"}
-                rules={[
-                  { required: true, message: "Vehicle type is required" },
-                ]}
+                name={"required"}
               >
-                <Input placeholder="Input Vehicle Type" />
+                <Switch  />
               </Form.Item>
-              <button
-                type="submit"
-                disabled={createIsLoading}
-                className=" w-full cursor-pointer rounded border border-none border-cyan-600 bg-blue-600 p-2 text-white hover:brightness-110"
-              >
-                {createIsLoading ? "Adding ..." : "Add Type"}
-              </button>
+            <button
+              type="submit"
+              disabled={createIsLoading}
+              className=" w-full cursor-pointer rounded border border-none border-cyan-600 bg-blue-600 p-2 text-white hover:brightness-110"
+            >
+              {createIsLoading ? "Adding ..." : "Add Type"}
+            </button>
             </Form>
           </div>
         </div>
@@ -308,6 +328,15 @@ const VehicleType = () => {
                   >
                     <Input placeholder="Input Vehicle Type" />
                   </Form.Item>
+                  <div className=" mb-2 mt-2 text-sm text-gray-500">
+                    Driver's License and Registration Papers Required (Cannot Edit this field)
+                  </div>
+                  <Form.Item
+                    name={"required"}
+                  >
+                    <Switch checked={activeVehicleType.data.driverPapersRequired} disabled/>
+                  </Form.Item>
+
                   <button
                     type="submit"
                     disabled={createIsLoading}

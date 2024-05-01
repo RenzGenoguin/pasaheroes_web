@@ -57,7 +57,7 @@ const VehicleType = () => {
 
   useEffect(()=>{
     form.setFieldValue("required",true)
-  },[form])
+  },[form,activeVehicleType])
 
   const onFinishEdit = (e: { vehicleType: string }) => {
     editVehicleType({

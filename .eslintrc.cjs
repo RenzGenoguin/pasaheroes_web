@@ -20,7 +20,7 @@ const config = {
     "@typescript-eslint/no-unsafe-member-access":"off",
     "@typescript-eslint/no-unsafe-call":"off",
     "@typescript-eslint/no-unsafe-argument":"off",
-    "react/no-unescaped-entities":"off",
+    "react/no-unescaped-entities":"off","@typescript-eslint/no-misused-promises": "off",
 
     "@typescript-eslint/consistent-type-imports": [
       "warn",

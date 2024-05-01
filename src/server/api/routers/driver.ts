@@ -9,23 +9,62 @@ export const driverRouter = createTRPCRouter({
       z.object({
         firstName: z.string(),
         lastName: z.string(),
-        plateNo: z.string(),
         contactNo: z.string(),
         address: z.string(),
         vehicleTypeId: z.number(),
         profileUrl: z.string(),
         gender: z.string(),
-        licenceNo: z.string()
+        licenceNo: z.string().optional(),
+        plateNo: z.string().optional(),
+        licencePhotoUrl:z.string().optional(),
+        licenceExpiration:z.date().optional(),
+        or:z.string().optional(),
+        cr:z.string().optional(),
+        franchiseNo:z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.driver.create({
-        data: {
-          ...input,
-          gender:input.gender as Gender,
-          fullName: `${input.firstName} ${input.lastName}`,
-        },
-      });
+      if(input.plateNo && input.or && input.cr){
+        const vehicleDetails = await ctx.prisma.vehicleRegistrationDetails.create({
+          data:{
+            or:input.or,
+            cr:input.cr,
+            franchiseNo:input.franchiseNo
+          }
+        })
+        if(vehicleDetails){
+        return await ctx.prisma.driver.create({
+          data: {
+            firstName:input.firstName,
+            lastName:input.lastName,
+            address:input.address,
+            contactNo:input.contactNo,
+            profileUrl: input.profileUrl,
+            vehicleTypeId:input.vehicleTypeId,
+            plateNo  :input.plateNo,
+            licenceNo:input.licenceNo,
+            licencePhotoUrl:input.licencePhotoUrl,
+            licenceExpiration:input.licenceExpiration,
+            registrationId: vehicleDetails.id,
+            gender:input.gender as Gender,
+            fullName: `${input.firstName} ${input.lastName}`,
+          },
+        });
+        }
+      }else{
+        return await ctx.prisma.driver.create({
+          data: {
+            firstName:input.firstName,
+            lastName:input.lastName,
+            address:input.address,
+            contactNo:input.contactNo,
+            profileUrl: input.profileUrl,
+            vehicleTypeId:input.vehicleTypeId,
+            gender:input.gender as Gender,
+            fullName: `${input.firstName} ${input.lastName}`,
+          },
+        });
+      }
     }),
 
   getAllDriver: publicProcedure
@@ -33,6 +72,7 @@ export const driverRouter = createTRPCRouter({
       z.object({
         searchText: z.string(),
         vehicleId: z.number().nullish(),
+        status: z.any(),
       }),
     )
     .query(({ ctx, input }) => {
@@ -45,6 +85,7 @@ export const driverRouter = createTRPCRouter({
       return ctx.prisma.driver.findMany({
         where: {
           ...searchVehicleType,
+          status: input.status,
           OR: [
             {
               fullName: {
@@ -104,6 +145,7 @@ export const driverRouter = createTRPCRouter({
             },
           },
           vehicleType: true,
+          registration:true
         },
       });
       return {
@@ -183,43 +225,71 @@ export const driverRouter = createTRPCRouter({
         id: z.string(),
         firstName: z.string(),
         lastName: z.string(),
-        plateNo: z.string(),
         contactNo: z.string(),
         address: z.string(),
         vehicleTypeId: z.number(),
         profileUrl: z.string(),
         gender: z.string(),
-        licenceNo: z.string()
+        licenceNo: z.string().optional(),
+        plateNo: z.string().optional(),
+        // licencePhotoUrl:z.string().optional(),
+        licenceExpiration:z.date().optional(),
+        or:z.string().optional(),
+        cr:z.string().optional(),
+        franchiseNo:z.string().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {
-      const {
-        firstName,
-        lastName,
-        plateNo,
-        contactNo,
-        address,
-        vehicleTypeId,
-        profileUrl,
-        gender,
-        licenceNo
-      } = input;
+      console.log("maui", input.id)
       return ctx.prisma.driver.update({
         where: {
           id: input.id,
         },
         data: {
+          firstName:input.firstName,
+          lastName:input.lastName,
+          address:input.address,
+          contactNo:input.contactNo,
+          profileUrl: input.profileUrl,
+          vehicleTypeId:input.vehicleTypeId,
+          plateNo  :input.plateNo ?? null,
+          licenceNo:input.licenceNo ?? null,
+          // licencePhotoUrl:input.licencePhotoUrl ?? null,
+          licenceExpiration:input.licenceExpiration ?? null,
+          gender:input.gender as Gender,
           fullName: `${input.firstName} ${input.lastName}`,
-          firstName,
-          lastName,
-          plateNo,
-          contactNo,
-          address,
-          vehicleTypeId,
-          profileUrl,
-          gender: gender as Gender,
-          licenceNo
         },
+      }).then(async(data)=>{
+      if(input.plateNo && input.or && input.cr && data.registrationId){
+        await ctx.prisma.vehicleRegistrationDetails.update({
+          where:{
+            id:data.registrationId
+          },
+          data:{
+            or:input.or,
+            cr:input.cr,
+            franchiseNo:input.franchiseNo
+          }
+        })
+      }
       });
     }),
+    updateStatusDriver :publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        status: z.enum(["APPROVED" , "DECLINED" , "PENDING"])
+      }),
+    ).mutation(async({ctx, input})=>{
+      const driver = await ctx.prisma.driver.update({
+        where:{
+          id:input.id
+        },
+        data:{
+          status:input.status
+        }
+      })
+      return driver.status
+    })
 });
+

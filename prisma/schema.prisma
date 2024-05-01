@@ -19,6 +19,7 @@ model Admin {
 model VehicleType {
   id          Int      @id @default(autoincrement())
   vehicleType String
+  driverPapersRequired Boolean @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Driver      Driver[]
@@ -30,18 +31,33 @@ model Driver {
   firstName     String
   lastName      String
   fullName      String
-  plateNo       String
-  licenceNo     String
   gender        Gender
   contactNo     String
   address       String
   vehicleTypeId Int
+  status Status @default(PENDING)
+  plateNo       String?
+  licenceNo     String?
+  licencePhotoUrl     String?
+  licenceExpiration     DateTime?
+  registrationId String? @unique
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   Comment       Comment[]
   vehicleType   VehicleType @relation(fields: [vehicleTypeId], references: [id])
+  registration   VehicleRegistrationDetails? @relation(fields: [registrationId], references: [id])
   Rating        Rating[]
   Ride          Ride[]
+}
+
+model VehicleRegistrationDetails {
+  id            String      @id @default(cuid())
+  or String
+  cr String
+  franchiseNo String?
+  registration Driver?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Pasahero {
@@ -114,4 +130,9 @@ model Ride {
 enum Gender {
   Male
   Female
+}
+enum Status {
+  APPROVED
+  DECLINED
+  PENDING
 }

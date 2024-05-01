@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import RidesHistory from "./components/RidesHistory";
 import RideModal from "./components/RideModal";
 import PasaherosComments from "./components/PasaherosComments";
+import toast from "react-hot-toast";
 
 const DriveDetails = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const DriveDetails = () => {
   const [ridesModal, setRidesModal] = useState<any>(null);
   const [takeComments, setTakeComments] = useState(4);
 
-  const { data: driverData, isLoading: driverDetailsIsLoading } =
+  const { data: driverData, isLoading: driverDetailsIsLoading, refetch:refetchDriver } =
     api.driver.getDriver.useQuery(
       {
         id: router.query.id as string,
@@ -26,7 +27,7 @@ const DriveDetails = () => {
       },
     );
 
-  const { data: driverRides, isLoading: driverRidesIsLoading } =
+  const { data: driverRides, isLoading: driverRidesIsLoading, refetch:refetchRides } =
     api.driver.getDriversRideHistory.useQuery(
       {
         id: router.query.id as string,
@@ -38,7 +39,7 @@ const DriveDetails = () => {
       },
     );
 
-  const { data: comments, isLoading: commentsIsLoading } =
+  const { data: comments, isLoading: commentsIsLoading, refetch:refetchComments } =
     api.driver.getCommentsToDriver.useQuery(
       {
         id: router.query.id as string,
@@ -48,6 +49,15 @@ const DriveDetails = () => {
         enabled: !!router.query.id,
       },
     );
+
+  const  { mutate: updateStatus, isLoading: updateStatusLoading } = api.driver.updateStatusDriver.useMutation({
+    onSuccess:async (data)=>{
+      toast.success(data==="APPROVED" ? "Driver Successfully Approved" : "Driver Declined");
+      await refetchComments()
+      await refetchDriver()
+      await refetchRides()
+    }
+  });
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -77,6 +87,8 @@ const DriveDetails = () => {
         handlePrint={handlePrint}
         handleEditDriverDetails={handleEditDriverDetails}
         driverData={driverData}
+        updateStatus={updateStatus}
+        updateStatusLoading={updateStatusLoading}
       />
       <div className=" flex flex-1 flex-row  gap-2 rounded-xl">
         <div className=" flex-1 rounded-xl bg-white shadow">

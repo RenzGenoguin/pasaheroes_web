@@ -55,6 +55,10 @@ const VehicleType = () => {
     });
   };
 
+  useEffect(()=>{
+    form.setFieldValue("required",true)
+  },[form])
+
   const onFinishEdit = (e: { vehicleType: string }) => {
     editVehicleType({
       ...e,
@@ -188,7 +192,7 @@ const VehicleType = () => {
               <Form.Item
                 name={"required"}
               >
-                <Switch  />
+                <Switch defaultChecked={form.getFieldValue("required")} />
               </Form.Item>
             <button
               type="submit"

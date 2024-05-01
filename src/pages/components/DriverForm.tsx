@@ -1,4 +1,4 @@
-import { DatePicker, Form, FormInstance, Input, Select } from "antd";
+import { DatePicker, Form, FormInstance, Image, Input, Select } from "antd";
 import { IoMdAddCircle } from "react-icons/io";
 import UploadImage from "./uploadImage";
 import { IoSend } from "react-icons/io5";
@@ -76,7 +76,7 @@ const DriverForm = ({
         </div>
       )}
       <div className=" mb-1  text-xl">Driver's Photo</div>
-      <div>Upload Drivers's Image</div>
+      <div>{`${isEdit? "Edit ":"Upload "}Drivers's License Photo`}</div>
       <UploadImage
         setImageFile={setImageFile}
         imageFile={imageFile}
@@ -156,15 +156,16 @@ const DriverForm = ({
       </div>
      {isRequired?.required && <>
      <div className=" mb-5">
-      <div>Upload Drivers's License Photo</div>
-      <UploadImage
+      <div>{`${isEdit? "":"Upload "}Drivers's License Photo`}</div>
+      {isEdit? 
+          <Image src={liscenseBase64} className=" rounded-lg" height={110} alt="Drivers License" /> : <UploadImage
         setImageFile={setLicenseFile}
         imageFile={liscenseFile}
         setImageBase64={setLiscenseBase64}
         imageBase64={liscenseBase64}
         imageError={liscenseError}
         setImageError={setLiscenseError}
-      /></div>
+      />}</div>
       <div className=" flex w-full flex-row gap-1">
         <Form.Item
           label="Plate No. "
@@ -247,7 +248,7 @@ const DriverForm = ({
           disabled={submitIsLoading}
           className=" mx-auto mb-5 flex h-10 cursor-pointer items-center justify-center gap-3 rounded border border-cyan-600 bg-blue-700 px-10 text-lg text-white hover:brightness-110 disabled:opacity-50"
         >
-          {submitIsLoading() ? "Adding..." : "Add Driver"}
+          {submitIsLoading ? "Adding..." : "Add Driver"}
           <IoSend />
         </button>
       )}

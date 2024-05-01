@@ -232,7 +232,7 @@ export const driverRouter = createTRPCRouter({
         gender: z.string(),
         licenceNo: z.string().optional(),
         plateNo: z.string().optional(),
-        licencePhotoUrl:z.string().optional(),
+        // licencePhotoUrl:z.string().optional(),
         licenceExpiration:z.date().optional(),
         or:z.string().optional(),
         cr:z.string().optional(),
@@ -254,25 +254,42 @@ export const driverRouter = createTRPCRouter({
           vehicleTypeId:input.vehicleTypeId,
           plateNo  :input.plateNo ?? null,
           licenceNo:input.licenceNo ?? null,
-          licencePhotoUrl:input.licencePhotoUrl ?? null,
+          // licencePhotoUrl:input.licencePhotoUrl ?? null,
           licenceExpiration:input.licenceExpiration ?? null,
           gender:input.gender as Gender,
           fullName: `${input.firstName} ${input.lastName}`,
         },
       }).then(async(data)=>{
-      if(input.plateNo && input.or && input.cr){
-        return
-        // await ctx.prisma.vehicleRegistrationDetails.update({
-        //   where:{
-        //     id:data.id
-        //   },
-        //   data:{
-        //     or:input.or,
-        //     cr:input.cr,
-        //     franchiseNo:input.franchiseNo
-        //   }
-        // })
+      if(input.plateNo && input.or && input.cr && data.registrationId){
+        await ctx.prisma.vehicleRegistrationDetails.update({
+          where:{
+            id:data.registrationId
+          },
+          data:{
+            or:input.or,
+            cr:input.cr,
+            franchiseNo:input.franchiseNo
+          }
+        })
       }
       });
     }),
+    updateStatusDriver :publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        status: z.enum(["APPROVED" , "DECLINED" , "PENDING"])
+      }),
+    ).mutation(async({ctx, input})=>{
+      const driver = await ctx.prisma.driver.update({
+        where:{
+          id:input.id
+        },
+        data:{
+          status:input.status
+        }
+      })
+      return driver.status
+    })
 });
+

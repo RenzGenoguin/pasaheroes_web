@@ -254,7 +254,7 @@ const DriverForm = ({
           disabled={submitIsLoading}
           className=" mx-auto mb-5 flex h-10 cursor-pointer items-center justify-center gap-3 rounded border border-cyan-600 bg-blue-700 px-10 text-lg text-white hover:brightness-110 disabled:opacity-50"
         >
-          {submitIsLoading ? "Adding..." : "Add Driver"}
+          {isRegistration ? (submitIsLoading ? "Submitting..." : "Submit Registration"):(submitIsLoading ? "Adding..." : "Add Driver")}
           <IoSend />
         </button>
       )}

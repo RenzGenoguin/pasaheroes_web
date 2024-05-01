@@ -62,7 +62,11 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   useEffect(() => {
     if (!localStorage.getItem("userId")) {
-      router.push("/login");
+      if(pathname ===("/login") || pathname === ("/pubDriverRegister")){
+        return
+      }else{
+        router.push("/login");
+      }
     } else {
       if (!pathname?.includes("admin")) {
         router.push("/admin");
@@ -93,7 +97,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  if (pathname !== "/login") {
+  if (pathname !=="/pubDriverRegister" && pathname !=="/login") {
     return (
       <div className=" min-h-screen">
         <Layout className=" min-h-screen">

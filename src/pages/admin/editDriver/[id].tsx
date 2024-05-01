@@ -155,6 +155,7 @@ const VehicleType = () => {
           setLiscenseError={setLiscenseError}
           submitIsLoading={submitIsLoading}
           isEdit={true}
+          isRegistration={undefined}
         />
       </div>
     </div>

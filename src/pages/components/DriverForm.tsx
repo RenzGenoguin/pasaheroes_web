@@ -24,6 +24,7 @@ const DriverForm = ({
   setLiscenseBase64,
   liscenseError,
   setLiscenseError,
+  isRegistration
 }: {
   form:FormInstance<any>;
   onFinish:any;
@@ -42,6 +43,7 @@ const DriverForm = ({
   setLiscenseBase64:any;
   liscenseError:any;
   setLiscenseError:any;
+  isRegistration : boolean| undefined
 }) => {
   const router = useRouter();
   const { data: vehicleType } = api.vehicleType.getAllvehicleTypes.useQuery({
@@ -63,18 +65,22 @@ const DriverForm = ({
       autoComplete="off"
       className=" flex w-full flex-col"
     >
-      {isEdit ? (
-        <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
-          Edit Driver's Details
-        </div>
-      ) : (
-        <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
-          <div className=" flex items-center justify-center text-3xl text-blue-700">
-            <IoMdAddCircle />
+      {
+        isRegistration ? <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
+        Driver's Registration
+      </div>:(isEdit ? (
+          <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
+            Edit Driver's Details
           </div>
-          Add New Driver
-        </div>
-      )}
+        ) : (
+          <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
+            <div className=" flex items-center justify-center text-3xl text-blue-700">
+              <IoMdAddCircle />
+            </div>
+            Add New Driver
+          </div>
+        ))
+      }
       <div className=" mb-1  text-xl">Driver's Photo</div>
       <div>{`${isEdit? "Edit ":"Upload "}Drivers's License Photo`}</div>
       <UploadImage

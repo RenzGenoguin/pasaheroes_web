@@ -1,14 +1,13 @@
-import { Form } from "antd";
-import { useRouter } from "next/router";
+import { Form, Modal } from "antd";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { handleUpload } from "~/components/firebase/firebaseupload";
 import toast from "react-hot-toast";
-import DriverForm from "../../components/DriverForm";
+import DriverForm from "../components/DriverForm";
 import { type Gender } from "@prisma/client";
 import dayjs from "dayjs";
 
-const VehicleType = () => {
+const DriverRegistration = () => {
   const [form] = Form.useForm();
   const [imageFile, setImageFile] = useState<any>(null);
   const [imageBase64, setImageBase64] = useState<any>(null);
@@ -16,20 +15,19 @@ const VehicleType = () => {
   const [liscenseFile, setLicenseFile] = useState<any>(null);
   const [liscenseBase64, setLiscenseBase64] = useState<any>(null);
   const [liscenseError, setLiscenseError] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [createDriverLoading, setCreateDriverLoading] =
     useState<boolean>(false);
-  const router = useRouter();
 
   const { mutate: createDriver, isLoading: createIsLoading } =
     api.driver.createDriver.useMutation({
       onSuccess: () => {
-        form.resetFields();
         setImageBase64(null);
         setImageFile(null);
         setCreateDriverLoading(false);
         form.resetFields();
-        toast.success("Driver Added!");
-        void router.push("/admin/drivers");
+        setIsModalOpen(true)
+        toast.success("Registration submitted!");
       },
     });
 
@@ -90,9 +88,18 @@ const VehicleType = () => {
     }
   };
 
+  const handleCancel = () => {
+    setIsModalOpen(false)
+  }
+
   return (
+    <div className=" z-20 flex min-h-screen flex-col items-center justify-center rounded bg-gradient-to-t from-blue-600 to-cyan-400 p-5">
     <div className=" flex w-full flex-row justify-center gap-5 p-5 pt-0">
-      <div className=" w-1/2 rounded-xl bg-slate-50 p-5 shadow-md">
+      <div className=" lg:w-1/2 rounded-xl bg-slate-50 p-5 shadow-md">
+        <Modal title="Registration Submitted" open={isModalOpen} footer={[]} onCancel={handleCancel}>
+        <div>Your registraion is now submitted.</div>
+        <div>Go to the admin office to get your printed QR Code.</div>
+      </Modal>
         {" "}
         <DriverForm
           form={form}
@@ -112,11 +119,12 @@ const VehicleType = () => {
           setLiscenseError={setLiscenseError}
           submitIsLoading={submitIsLoading}
           isEdit={false}
-          isRegistration={undefined}
+          isRegistration={true}
         />
       </div>
+    </div>
     </div>
   );
 };
 
-export default VehicleType;
+export default DriverRegistration;

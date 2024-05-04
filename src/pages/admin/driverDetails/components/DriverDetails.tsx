@@ -83,13 +83,13 @@ const DriverDetails = ({
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-1 flex-col text-base text-gray-400">
                     <span className=" -mb-2 text-xs">Name</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                       {driverData?.fullName}
                     </span>
                   </div>
                   <div className=" flex  flex-1 flex-col text-base text-gray-400">
                     <span className=" -mb-2 text-xs">Gender</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                       {driverData?.gender}
                     </span>
                   </div>
@@ -98,13 +98,13 @@ const DriverDetails = ({
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Address</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                       {driverData?.address}
                     </span>
                   </div>
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Contact Number</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                       {driverData?.contactNo}
                     </span>
                   </div>
@@ -113,13 +113,13 @@ const DriverDetails = ({
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Vehicle Type</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                       {driverData?.vehicleType.vehicleType}
                     </span>
                   </div>
                   {driverData?.registrationId && <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">Plate Number</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                       {driverData?.plateNo}
                     </span>
                   </div>}
@@ -129,15 +129,15 @@ const DriverDetails = ({
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">License Number</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                       {driverData?.licenceNo}
                     </span>
                   </div>
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
                     <span className=" -mb-2 text-xs">License Expiration</span>
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                     {dayjs(driverData?.licenceExpiration).format("MMMM DD, YYYY")}
-                    <span className=" ml-1 text-lg font-medium text-gray-600">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1">
                     {dayjs().isBefore(dayjs(driverData?.licenceExpiration))? <span className=" px-2 text-green-500">Active</span>:<span className=" px-2 text-red-500">Expired</span>}
                     </span>
                     </span>
@@ -146,7 +146,7 @@ const DriverDetails = ({
                     <span className=" -mb-2 text-xs">License Photo</span>
                     <span className=" -mb-2 text-xs py-1 rounded overflow-hidden">
                     Click to view : 
-                    <span className=" ml-1 text-lg font-medium text-gray-600 rounded overflow-hidden">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1 rounded overflow-hidden">
                       {driverData?.licencePhotoUrl?
                     <Image className=" rounded" alt="licence" width={50} height={30} src={driverData?.licencePhotoUrl}/>:
                     <>No Photo</>}
@@ -158,7 +158,7 @@ const DriverDetails = ({
                     <span className=" -mb-1 text-xs">Certificate Photo</span>
                     <span className=" -mb-2 text-xs py-1 rounded overflow-hidden">
                     Click to view : 
-                    <span className=" ml-1 text-lg font-medium text-gray-600 rounded overflow-hidden">
+                    <span className=" ml-1 text-sm font-medium text-gray-600 mt-1 rounded overflow-hidden">
                       {driverData?.licencePhotoUrl?
                     <Image className=" rounded" alt="licence" width={50} height={30} src={driverData?.licencePhotoUrl}/>:
                     <>No Photo</>}
@@ -166,9 +166,9 @@ const DriverDetails = ({
                     </span>
                   </div>}
                 <Divider className=" p-0 m-0" />
-                <div className=" text-gray-400 flex items-center gap-1 text-base">
+                <div className=" text-gray-400 flex items-center gap-1 text-sm">
                   Date Registered :
-                  <span className=" text-lg font-medium text-gray-600">
+                  <span className=" ml-1 text-sm font-medium text-gray-600">
                     {dayjs(driverData?.createdAt).format("MMMM DD, YYYY")}
                   </span>
                 </div>

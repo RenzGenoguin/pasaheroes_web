@@ -73,7 +73,7 @@ const DriverDetails = ({
                 <img
                   src={driverData?.profileUrl}
                   alt="Driver's Photo"
-                  className=" h-full w-full object-contain"
+                  className=" h-56 w-56 object-cover"
                 />
               </div>
             </div>
@@ -124,7 +124,7 @@ const DriverDetails = ({
                     </span>
                   </div>}
                 </div>
-                {!driverData?.registrationId ? <>
+                {driverData?.registrationId ? <>
                 <Divider className=" p-0 m-0" />
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">

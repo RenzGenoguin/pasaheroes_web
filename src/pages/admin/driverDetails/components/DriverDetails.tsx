@@ -57,7 +57,7 @@ const DriverDetails = ({
                   : "No Rating"}{" "}
                 )
               </div>
-            </div>: <div className={` px-3 p-1 border border-solid ${driverData?.status === "PENDING" ? "border-orange-400 text-orange-400":"border-red-400 text-red-400"} text-sm mx-3 rounded text-white`}>{driverData?.status}</div>}
+            </div>: <div className={` px-3 p-1 border border-solid ${driverData?.status === "PENDING" ? "border-orange-400 text-orange-400":"border-red-400 text-red-400"} text-sm mx-3 rounded`}>{driverData?.status}</div>}
             <div
               onClick={handleEditDriverDetails}
               className=" flex cursor-pointer flex-row items-center justify-center gap-2 rounded px-2 py-1 text-orange-300 hover:bg-orange-100 hover:text-orange-500"
@@ -124,7 +124,7 @@ const DriverDetails = ({
                     </span>
                   </div>}
                 </div>
-                {driverData?.registrationId && <>
+                {!driverData?.registrationId ? <>
                 <Divider className=" p-0 m-0" />
                 <div className=" flex flex-row items-center gap-10">
                   <div className=" flex flex-col text-base  flex-1 text-gray-400">
@@ -138,7 +138,7 @@ const DriverDetails = ({
                     <span className=" ml-1 text-lg font-medium text-gray-600">
                     {dayjs(driverData?.licenceExpiration).format("MMMM DD, YYYY")}
                     <span className=" ml-1 text-lg font-medium text-gray-600">
-                    {dayjs().isBefore(dayjs(driverData.licenceExpiration))? <span className=" px-2 text-green-500">Active</span>:<span className=" px-2 text-red-500">Expired</span>}
+                    {dayjs().isBefore(dayjs(driverData?.licenceExpiration))? <span className=" px-2 text-green-500">Active</span>:<span className=" px-2 text-red-500">Expired</span>}
                     </span>
                     </span>
                   </div>
@@ -147,11 +147,24 @@ const DriverDetails = ({
                     <span className=" -mb-2 text-xs py-1 rounded overflow-hidden">
                     Click to view : 
                     <span className=" ml-1 text-lg font-medium text-gray-600 rounded overflow-hidden">
-                    <Image className=" rounded" alt="licence" width={50} height={30} src={driverData?.licencePhotoUrl}/>
+                      {driverData?.licencePhotoUrl?
+                    <Image className=" rounded" alt="licence" width={50} height={30} src={driverData?.licencePhotoUrl}/>:
+                    <>No Photo</>}
                     </span>
                     </span>
                   </div>
-                </div></>}
+                </div></>: 
+                  <div className=" flex flex-col text-base  flex-1 text-gray-400">
+                    <span className=" -mb-1 text-xs">Certificate Photo</span>
+                    <span className=" -mb-2 text-xs py-1 rounded overflow-hidden">
+                    Click to view : 
+                    <span className=" ml-1 text-lg font-medium text-gray-600 rounded overflow-hidden">
+                      {driverData?.licencePhotoUrl?
+                    <Image className=" rounded" alt="licence" width={50} height={30} src={driverData?.licencePhotoUrl}/>:
+                    <>No Photo</>}
+                    </span>
+                    </span>
+                  </div>}
                 <Divider className=" p-0 m-0" />
                 <div className=" text-gray-400 flex items-center gap-1 text-base">
                   Date Registered :

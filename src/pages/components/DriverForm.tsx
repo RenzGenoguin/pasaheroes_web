@@ -82,7 +82,7 @@ const DriverForm = ({
         ))
       }
       <div className=" mb-1  text-xl">Driver's Photo</div>
-      <div>{`${isEdit? "Edit ":"Upload "}Drivers's License Photo`}</div>
+      <div>{`${isEdit? "Edit ":"Upload "}Drivers's Photo`}</div>
       <UploadImage
         setImageFile={setImageFile}
         imageFile={imageFile}
@@ -144,7 +144,7 @@ const DriverForm = ({
           <Input size="large" placeholder="09*********" />
         </Form.Item>
       </div>
-      <div className=" flex w-1/2 flex-row gap-1">
+      <div className=" w-full flex-col"><div className=" flex w-1/2 flex-row gap-1">
         <Form.Item
           label="Vehicle Type"
           name={"vehicleTypeId"}
@@ -160,6 +160,18 @@ const DriverForm = ({
           />
         </Form.Item>
       </div>
+        {isRequired?.required === false && <div className=" flex w-1/2 flex-col gap-1">
+        <div>{`${isEdit? "":"Upload "}Drivers's Certificate`}</div>
+        {isEdit? 
+            <Image src={liscenseBase64} className=" rounded-lg" height={110} alt="Driver's Certificate" /> : <UploadImage
+          setImageFile={setLicenseFile}
+          imageFile={liscenseFile}
+          setImageBase64={setLiscenseBase64}
+          imageBase64={liscenseBase64}
+          imageError={liscenseError}
+          setImageError={setLiscenseError}
+        />}
+        </div>}</div>
      {isRequired?.required && <>
      <div className=" mb-5">
       <div>{`${isEdit? "":"Upload "}Drivers's License Photo`}</div>

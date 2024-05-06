@@ -55,7 +55,23 @@ const DriverForm = ({
   };
   const vehicleTypeId = Form.useWatch("vehicleTypeId", form)
   const isRequired:any = vehicleType?.find((vt:any)=>vt.value === vehicleTypeId)
+  const validatePhilippinePhoneNumber = (_:any, value:any) => {
+    // Regular expression for Philippine phone number format (09*********)
+    const regex = /^09\d{9}$/;
+
+    if (!value) {
+      return Promise.reject('Contact number is required');
+    } else if (!regex.test(value)) {
+      return Promise.reject('Please enter a valid Philippine phone number (e.g., 09*********)');
+    }
+
+    return Promise.resolve();
+  };
   return (
+    <div>
+      <div className=" text-3xl mb-1 w-full text-center  font-bold uppercase text-sky-700">
+      PASAHEROES
+    </div>
     <Form
       form={form}
       layout="vertical"
@@ -66,8 +82,8 @@ const DriverForm = ({
       className=" flex w-full flex-col"
     >
       {
-        isRegistration ? <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
-        Driver's Registration
+        isRegistration ? <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-base">
+        ( Driver's Registration )
       </div>:(isEdit ? (
           <div className=" mb-1 flex w-full flex-row items-center justify-center gap-1 text-center text-xl">
             Edit Driver's Details
@@ -139,7 +155,15 @@ const DriverForm = ({
           label="Contact No."
           name={"contactNo"}
           className=" flex-1"
-          rules={[{ required: true, message: "Contact number is required" }]}
+          rules={[
+            {
+              required: true,
+              message: 'Contact number is required',
+            },
+            {
+              validator: validatePhilippinePhoneNumber,
+            },
+          ]}
         >
           <Input size="large" placeholder="09*********" />
         </Form.Item>
@@ -271,6 +295,7 @@ const DriverForm = ({
         </button>
       )}
     </Form>
+    </div>
   );
 };
 

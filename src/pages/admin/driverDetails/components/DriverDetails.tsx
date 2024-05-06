@@ -29,7 +29,7 @@ const DriverDetails = ({
    }
   }
   return (
-    <div className=" flex h-2/5 flex-none flex-row rounded-xl  p-3 px-5 shadow lg:px-10">
+    <div className=" flex flex-none flex-row rounded-xl  p-3 px-5 shadow lg:px-10">
     <Modal footer={[]} width={300} title={statusApproval?.status === "APPROVED" ? "Approve Driver":"Decline Driver"} open={statusApproval !== null} onOk={handleOk} onCancel={handleCancel}>
       <div className=" flex flex-col">
         <div>{statusApproval?.status === "APPROVED" ? "Confirm approval of this driver":"Confirm declination of this driver"}</div>
@@ -66,14 +66,14 @@ const DriverDetails = ({
               <div>Edit Driver's Details</div>
             </div>
           </div>
-          <div className=" flex flex-row  gap-3 px-0 2xl:px-5 h-full">
+          <div className=" flex flex-row  gap-3 px-0 h-full">
             <div className="p-0 2xl:p-2">
               <div className=" mb-2">Driver's Photo</div>
-              <div className=" h-56 w-full overflow-hidden rounded-lg bg-white shadow">
+              <div className=" w-full overflow-hidden rounded-lg bg-white shadow">
                 <img
                   src={driverData?.profileUrl}
                   alt="Driver's Photo"
-                  className=" h-56 w-56 object-cover"
+                  className=" h-48 w-48 object-cover"
                 />
               </div>
             </div>

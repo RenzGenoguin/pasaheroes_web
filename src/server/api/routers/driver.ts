@@ -24,6 +24,18 @@ export const driverRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const numberAlreadyUsed = await ctx.prisma.driver.findFirst({
+        where :{
+          contactNo :input.contactNo,
+          status:"APPROVED"
+        }
+      })
+      if(numberAlreadyUsed){
+        return {
+          error:true,
+          message:"This contact number is already used."
+        }
+      }
       if(input.plateNo && input.or && input.cr){
         const vehicleDetails = await ctx.prisma.vehicleRegistrationDetails.create({
           data:{

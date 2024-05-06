@@ -21,13 +21,23 @@ const DriverRegistration = () => {
 
   const { mutate: createDriver, isLoading: createIsLoading } =
     api.driver.createDriver.useMutation({
-      onSuccess: () => {
-        setImageBase64(null);
-        setImageFile(null);
-        setCreateDriverLoading(false);
-        form.resetFields();
-        setIsModalOpen(true)
-        toast.success("Registration submitted!");
+      onSuccess: (data:any) => {
+        if(data.error){
+          form.setFields([
+          {
+            name: 'contactNo',
+            errors: [data.message],
+          },
+       ]);
+       setCreateDriverLoading(false);
+        }else{
+          setImageBase64(null);
+          setImageFile(null);
+          setCreateDriverLoading(false);
+          form.resetFields();
+          setIsModalOpen(true)
+          toast.success("Registration submitted!");
+        }
       },
     });
 

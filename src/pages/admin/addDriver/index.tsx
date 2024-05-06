@@ -22,14 +22,24 @@ const VehicleType = () => {
 
   const { mutate: createDriver, isLoading: createIsLoading } =
     api.driver.createDriver.useMutation({
-      onSuccess: () => {
-        form.resetFields();
-        setImageBase64(null);
-        setImageFile(null);
-        setCreateDriverLoading(false);
-        form.resetFields();
-        toast.success("Driver Added!");
-        void router.push("/admin/drivers");
+      onSuccess: (data:any) => {
+        if(data.error){
+          form.setFields([
+          {
+            name: 'contactNo',
+            errors: [data.message],
+          },
+       ]);
+       setCreateDriverLoading(false);
+        }else{
+          form.resetFields();
+          setImageBase64(null);
+          setImageFile(null);
+          setCreateDriverLoading(false);
+          form.resetFields();
+          toast.success("Driver Added!");
+          void router.push("/admin/drivers");
+        }
       },
     });
 
